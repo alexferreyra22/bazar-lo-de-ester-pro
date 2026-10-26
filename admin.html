@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración General - Bazar Lo de Ester</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚙️</text></svg>">
+  <style>
+    .admin-nav-bar {
+      background: var(--primary);
+      padding: 0.5rem 1.25rem;
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+    }
+    .admin-nav-link {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.4rem 0.85rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+    .admin-nav-link:hover, .admin-nav-link.active {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .admin-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .admin-card-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      font-size: 0.825rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .form-control {
+      padding: 0.65rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      font-family: inherit;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(0, 35, 111, 0.1);
+    }
+    .switch-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 52px;
+      height: 28px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #cbd5e1;
+      transition: .3s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #10b981;
+    }
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #10b981;
+      color: #fff;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      box-shadow: var(--shadow-lg);
+      display: none;
+      z-index: 2000;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header del Administrador -->
+  <header class="main-header" style="background: #001646; color: #fff;">
+    <div class="header-container" style="justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <div class="brand-icon" style="background: #1e3a8a;">
+          <span class="material-symbols-outlined" style="font-size: 26px;">shield_person</span>
+        </div>
+        <div>
+          <div style="font-size: 1.15rem; font-weight: 800; color: #fff;">Bazar Lo de Ester</div>
+          <div style="font-size: 0.75rem; color: #fea619; font-weight: 600;">Panel de Administración General</div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <a href="index.html" target="_blank" class="btn btn-outline" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2); font-size: 0.8rem; padding: 0.4rem 0.75rem;">
+          <span class="material-symbols-outlined" style="font-size: 16px;">open_in_new</span>
+          Ver Sitio
+        </a>
+        <button type="button" id="btn-logout" class="btn btn-danger" style="font-size: 0.8rem; padding: 0.4rem 0.75rem;">
+          <span class="material-symbols-outlined" style="font-size: 16px;">logout</span>
+          Cerrar Sesión
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Subnavegación de Módulos Administrativos -->
+  <nav class="admin-nav-bar">
+    <a href="admin.html" class="admin-nav-link active">
+      <span class="material-symbols-outlined" style="font-size: 18px;">tune</span>
+      Control General & Stock
+    </a>
+    <a href="admin-taller.html" class="admin-nav-link">
+      <span class="material-symbols-outlined" style="font-size: 18px;">build</span>
+      Taller & Avisos WhatsApp
+    </a>
+    <a href="admin-finanzas.html" class="admin-nav-link">
+      <span class="material-symbols-outlined" style="font-size: 18px;">payments</span>
+      Caja & Ganancias
+    </a>
+  </nav>
+
+  <main class="container" style="padding-top: 2rem;">
+    
+    <!-- GRID DE 2 COLUMNAS PARA MÓDULOS -->
+    <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; align-items: start;">
+      
+      <!-- COLUMNA IZQUIERDA: GESTIÓN DE PRODUCTOS Y STOCK -->
+      <div>
+        
+        <!-- Formulario: Cargar Nuevo Producto -->
+        <div class="admin-card">
+          <h2 class="admin-card-title">
+            <span class="material-symbols-outlined">add_box</span>
+            Cargar Nuevo Producto de Bazar o Tecnología
+          </h2>
+          <form id="form-add-product" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label>Nombre del Producto *</label>
+              <input type="text" id="prod-name" class="form-control" placeholder="Ej: Termo Stanley 1L Verde Oliva" required>
+            </div>
+            
+            <div class="form-group">
+              <label>Categoría *</label>
+              <select id="prod-category" class="form-control" required>
+                <option value="Bazar Matero">Bazar Matero</option>
+                <option value="Tecnología">Tecnología & Cables</option>
+                <option value="Audio & Móvil">Audio & Móvil</option>
+                <option value="Hogar">Hogar & Regalería</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Precio de Venta ($) *</label>
+              <input type="number" id="prod-price" class="form-control" placeholder="Ej: 28500" min="0" required>
+            </div>
+
+            <div class="form-group">
+              <label>Cantidad en Stock *</label>
+              <input type="number" id="prod-stock" class="form-control" placeholder="Ej: 15" min="0" required>
+            </div>
+
+            <div class="form-group">
+              <label>URL de Imagen (Link)</label>
+              <input type="url" id="prod-image" class="form-control" placeholder="https://images.unsplash.com/..." value="https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=600&q=80">
+            </div>
+
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label>Descripción / Características</label>
+              <input type="text" id="prod-desc" class="form-control" placeholder="Breve descripción del producto para el cliente">
+            </div>
+
+            <div style="grid-column: 1 / -1; display: flex; justify-content: flex-end;">
+              <button type="submit" class="btn btn-primary">
+                <span class="material-symbols-outlined">save</span>
+                Guardar Producto en Stock
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Tabla: Inventario Actual de Productos -->
+        <div class="admin-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h2 class="admin-card-title" style="margin-bottom: 0; border: none; padding: 0;">
+              <span class="material-symbols-outlined">inventory</span>
+              Inventario de Stock (<span id="total-prods-count">0</span>)
+            </h2>
+          </div>
+          <div style="overflow-x: auto;">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Foto</th>
+                  <th>Producto</th>
+                  <th>Precio</th>
+                  <th>Stock</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody id="admin-products-tbody">
+                <!-- Llenado dinámico -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Módulo de Comercios Amigos -->
+        <div class="admin-card">
+          <h2 class="admin-card-title">
+            <span class="material-symbols-outlined">handshake</span>
+            Comercios Amigos & Publicidad Barrial
+          </h2>
+          <form id="form-add-business" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+            <div class="form-group">
+              <label>Nombre del Comercio *</label>
+              <input type="text" id="biz-name" class="form-control" placeholder="Ej: Carnicería El Pampeano" required>
+            </div>
+            <div class="form-group">
+              <label>Rubro *</label>
+              <input type="text" id="biz-category" class="form-control" placeholder="Ej: Carnes & Fiambrería" required>
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label>Beneficio para Vecinos *</label>
+              <input type="text" id="biz-benefit" class="form-control" placeholder="Ej: 10% OFF pagando en efectivo los días jueves" required>
+            </div>
+            <div class="form-group">
+              <label>WhatsApp Oficial (sin guiones)</label>
+              <input type="text" id="biz-whatsapp" class="form-control" placeholder="Ej: 3794123456" required>
+            </div>
+            <div class="form-group">
+              <label>Instagram</label>
+              <input type="text" id="biz-instagram" class="form-control" placeholder="Ej: @elpampeano_ctes">
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label>URL Logo / Foto</label>
+              <input type="url" id="biz-image" class="form-control" value="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80">
+            </div>
+            <div style="grid-column: 1 / -1; display: flex; justify-content: flex-end;">
+              <button type="submit" class="btn btn-secondary">
+                <span class="material-symbols-outlined">add</span>
+                Agregar Comercio Amigo
+              </button>
+            </div>
+          </form>
+
+          <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--primary);">Comercios Publicitados Actualmente:</h4>
+          <div id="admin-businesses-list" style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <!-- Llenado dinámico -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- COLUMNA DERECHA: CONFIGURACIÓN DE TARIFAS, ANSES Y SEGURIDAD -->
+      <div>
+        
+        <!-- Tarjeta: Modificar Tarifas de Fotocopias y Lavado -->
+        <div class="admin-card">
+          <h2 class="admin-card-title">
+            <span class="material-symbols-outlined">price_change</span>
+            Modificar Precios del Sitio
+          </h2>
+          <form id="form-update-rates">
+            <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-bottom: 0.75rem;">Fotocopias & Copiado Digital:</h4>
+            <div class="form-group">
+              <label>Copia Blanco y Negro ($ / carilla):</label>
+              <input type="number" id="rate-byn" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Copia Color Láser ($ / carilla):</label>
+              <input type="number" id="rate-color" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Papel Sticker ($ / hoja):</label>
+              <input type="number" id="rate-sticker" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Papel Fotográfico HD ($ / foto):</label>
+              <input type="number" id="rate-foto" class="form-control" required>
+            </div>
+
+            <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--primary); margin: 1.25rem 0 0.75rem;">Servicio de Lavado de Acolchados:</h4>
+            <div class="form-group">
+              <label>1 Plaza / Simple ($):</label>
+              <input type="number" id="rate-lavado-1" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>2 Plazas / Queen ($):</label>
+              <input type="number" id="rate-lavado-2" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>King Size ($):</label>
+              <input type="number" id="rate-lavado-king" class="form-control" required>
+            </div>
+
+            <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--primary); margin: 1.25rem 0 0.75rem;">Publicidad Comercios Amigos:</h4>
+            <div class="form-group">
+              <label>Abono Mensual Publicitario ($):</label>
+              <input type="number" id="rate-publicidad" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+              <span class="material-symbols-outlined">save</span>
+              Actualizar Todas las Tarifas
+            </button>
+          </form>
+        </div>
+
+        <!-- Tarjeta: Campaña de Temporada & Precios ANSES -->
+        <div class="admin-card">
+          <h2 class="admin-card-title">
+            <span class="material-symbols-outlined">campaign</span>
+            Gestión & Precios Trámites ANSES
+          </h2>
+          <p style="font-size: 0.85rem; color: var(--text-sub); margin-bottom: 1.25rem;">
+            Modificá las tarifas que cobrás por gestionar turnos, partidas y formularios, y activá o pausá la campaña escolar según la temporada:
+          </p>
+
+          <!-- Switch Campaña Escolar -->
+          <div style="background: var(--surface-dim); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border); margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <strong style="font-size: 0.95rem; color: var(--text-main);">Campaña Ayuda Escolar / Libreta</strong>
+                <p style="font-size: 0.775rem; color: var(--text-muted); margin-top: 0.2rem;">Activa la tarjeta destacada en tramites.html</p>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="switch-ayuda-escolar">
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div id="ayuda-escolar-status-text" style="font-size: 0.8rem; font-weight: 700; color: #166534; margin-top: 0.75rem;">
+              ● Campaña ACTIVA actualmente
+            </div>
+          </div>
+
+          <!-- Formulario de Precios de Trámites ANSES -->
+          <form id="form-update-anses-prices">
+            <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-bottom: 0.75rem;">Tarifas de Trámites y Gestiones ($):</h4>
+            
+            <div class="form-group">
+              <label>1. Turnos Oficiales ANSES ($):</label>
+              <input type="number" id="rate-anses-turnos" class="form-control" placeholder="Ej: 2500" min="0" required>
+            </div>
+
+            <div class="form-group">
+              <label>2. Partidas de Nacimiento & Registro Civil ($):</label>
+              <input type="number" id="rate-anses-partidas" class="form-control" placeholder="Ej: 3200" min="0" required>
+            </div>
+
+            <div class="form-group">
+              <label>3. Formularios Asignación / Pensión ($):</label>
+              <input type="number" id="rate-anses-formularios" class="form-control" placeholder="Ej: 1800" min="0" required>
+            </div>
+
+            <div class="form-group">
+              <label>4. Gestión Ayuda Escolar / Libreta AUH ($):</label>
+              <input type="number" id="rate-anses-escolar" class="form-control" placeholder="Ej: 2000" min="0" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+              <span class="material-symbols-outlined">save</span>
+              Actualizar Precios de Trámites ANSES
+            </button>
+          </form>
+        </div>
+
+        <!-- Tarjeta: Cambio de PIN de Administrador -->
+        <div class="admin-card">
+          <h2 class="admin-card-title">
+            <span class="material-symbols-outlined">key</span>
+            Seguridad & Clave de Acceso
+          </h2>
+          <form id="form-change-pin">
+            <div class="form-group">
+              <label>PIN Actual (6 dígitos):</label>
+              <input type="password" id="pin-current" class="form-control" maxlength="6" placeholder="******" required>
+            </div>
+            <div class="form-group">
+              <label>Nuevo PIN (6 dígitos numéricos):</label>
+              <input type="password" id="pin-new" class="form-control" maxlength="6" placeholder="******" required>
+            </div>
+            <button type="submit" class="btn btn-outline" style="width: 100%;">
+              <span class="material-symbols-outlined">lock_reset</span>
+              Cambiar Código PIN
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Notificación Toast -->
+  <div class="toast" id="admin-toast">
+    <span class="material-symbols-outlined">check_circle</span>
+    <span id="toast-text">Cambios guardados con éxito</span>
+  </div>
+
+  <script src="store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Verificar autenticación
+      if (!Store.isAuthenticated()) {
+        window.location.href = 'admin-login.html';
+        return;
+      }
+
+      // Logout
+      document.getElementById('btn-logout').addEventListener('click', () => {
+        Store.logout();
+        window.location.href = 'admin-login.html';
+      });
+
+      const toast = document.getElementById('admin-toast');
+      const toastText = document.getElementById('toast-text');
+      function showToast(msg) {
+        toastText.textContent = msg;
+        toast.style.display = 'flex';
+        setTimeout(() => toast.style.display = 'none', 3000);
+      }
+
+      // 2. Renderizar Inventario de Productos
+      function renderInventory() {
+        const products = Store.getProducts();
+        document.getElementById('total-prods-count').textContent = products.length;
+        const tbody = document.getElementById('admin-products-tbody');
+        tbody.innerHTML = products.map(p => `
+          <tr>
+            <td>
+              <img src="${p.image}" alt="${p.name}" style="width: 44px; height: 44px; object-fit: cover; border-radius: var(--radius-sm);">
+            </td>
+            <td>
+              <strong style="color: var(--text-main); font-size: 0.9rem;">${p.name}</strong><br>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">${p.category}</span>
+            </td>
+            <td>
+              <strong style="color: var(--primary);">$${p.price.toLocaleString('es-AR')}</strong>
+            </td>
+            <td>
+              <div style="display: flex; align-items: center; gap: 0.35rem;">
+                <button type="button" class="btn btn-outline btn-stock-minus" data-id="${p.id}" style="width: 26px; height: 26px; padding: 0;">-</button>
+                <strong style="min-width: 24px; text-align: center;">${p.stock}</strong>
+                <button type="button" class="btn btn-outline btn-stock-plus" data-id="${p.id}" style="width: 26px; height: 26px; padding: 0;">+</button>
+              </div>
+            </td>
+            <td>
+              <button type="button" class="btn btn-danger btn-prod-delete" data-id="${p.id}" style="padding: 0.3rem 0.5rem; font-size: 0.75rem;">
+                <span class="material-symbols-outlined" style="font-size: 16px;">delete</span>
+              </button>
+            </td>
+          </tr>
+        `).join('');
+
+        // Eventos stock
+        document.querySelectorAll('.btn-stock-minus').forEach(b => {
+          b.addEventListener('click', () => {
+            const id = b.getAttribute('data-id');
+            const prod = products.find(p => p.id === id);
+            if (prod && prod.stock > 0) {
+              Store.updateProduct(id, { stock: prod.stock - 1 });
+              renderInventory();
+              showToast('Stock actualizado');
+            }
+          });
+        });
+
+        document.querySelectorAll('.btn-stock-plus').forEach(b => {
+          b.addEventListener('click', () => {
+            const id = b.getAttribute('data-id');
+            const prod = products.find(p => p.id === id);
+            if (prod) {
+              Store.updateProduct(id, { stock: prod.stock + 1 });
+              renderInventory();
+              showToast('Stock actualizado');
+            }
+          });
+        });
+
+        document.querySelectorAll('.btn-prod-delete').forEach(b => {
+          b.addEventListener('click', () => {
+            if (confirm('¿Eliminar este producto del catálogo?')) {
+              Store.deleteProduct(b.getAttribute('data-id'));
+              renderInventory();
+              showToast('Producto eliminado');
+            }
+          });
+        });
+      }
+
+      // 3. Alta de Producto
+      document.getElementById('form-add-product').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const newP = {
+          name: document.getElementById('prod-name').value.trim(),
+          category: document.getElementById('prod-category').value,
+          price: Number(document.getElementById('prod-price').value),
+          stock: Number(document.getElementById('prod-stock').value),
+          image: document.getElementById('prod-image').value.trim() || 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=600&q=80',
+          description: document.getElementById('prod-desc').value.trim()
+        };
+        Store.addProduct(newP);
+        renderInventory();
+        document.getElementById('form-add-product').reset();
+        showToast('¡Producto agregado al catálogo!');
+      });
+
+      // 4. Cargar y Guardar Tarifas
+      const rates = Store.getRates();
+      document.getElementById('rate-byn').value = rates.fotocopias.byn_simple;
+      document.getElementById('rate-color').value = rates.fotocopias.color_simple;
+      document.getElementById('rate-sticker').value = rates.fotocopias.sticker;
+      document.getElementById('rate-foto').value = rates.fotocopias.foto_hd;
+      document.getElementById('rate-lavado-1').value = rates.lavado.plaza_1;
+      document.getElementById('rate-lavado-2').value = rates.lavado.plaza_2;
+      document.getElementById('rate-lavado-king').value = rates.lavado.king;
+      document.getElementById('rate-publicidad').value = rates.publicidad_mensual || 5000;
+
+      document.getElementById('form-update-rates').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const updated = {
+          fotocopias: {
+            byn_simple: Number(document.getElementById('rate-byn').value),
+            color_simple: Number(document.getElementById('rate-color').value),
+            sticker: Number(document.getElementById('rate-sticker').value),
+            foto_hd: Number(document.getElementById('rate-foto').value),
+            doble_faz_factor: 1.8
+          },
+          lavado: {
+            plaza_1: Number(document.getElementById('rate-lavado-1').value),
+            plaza_2: Number(document.getElementById('rate-lavado-2').value),
+            king: Number(document.getElementById('rate-lavado-king').value)
+          },
+          publicidad_mensual: Number(document.getElementById('rate-publicidad').value)
+        };
+        Store.saveRates(updated);
+        showToast('Tarifas del sitio actualizadas');
+      });
+
+      // 5. Gestión ANSES - Precios y Switch Ayuda Escolar
+      const anses = Store.getAnses();
+      const switchEl = document.getElementById('switch-ayuda-escolar');
+      const statusText = document.getElementById('ayuda-escolar-status-text');
+      
+      switchEl.checked = !!anses.ayudaEscolarActive;
+      updateAyudaEscolarUI(switchEl.checked);
+
+      switchEl.addEventListener('change', () => {
+        Store.toggleAyudaEscolar(switchEl.checked);
+        updateAyudaEscolarUI(switchEl.checked);
+        showToast(switchEl.checked ? 'Campaña Escolar Activada en tramites.html' : 'Campaña Escolar Pausada');
+      });
+
+      function updateAyudaEscolarUI(isActive) {
+        if (isActive) {
+          statusText.textContent = '● Campaña ACTIVA actualmente en tramites.html';
+          statusText.style.color = '#166534';
+        } else {
+          statusText.textContent = '○ Campaña PAUSADA (Oculta para los clientes)';
+          statusText.style.color = '#64748b';
+        }
+      }
+
+      function loadAnsesPrices() {
+        const data = Store.getAnses();
+        const turnos = data.tramites.find(t => t.id === 'anses-1');
+        const partidas = data.tramites.find(t => t.id === 'anses-2');
+        const formularios = data.tramites.find(t => t.id === 'anses-3');
+
+        if (turnos) document.getElementById('rate-anses-turnos').value = turnos.price;
+        if (partidas) document.getElementById('rate-anses-partidas').value = partidas.price;
+        if (formularios) document.getElementById('rate-anses-formularios').value = formularios.price;
+        document.getElementById('rate-anses-escolar').value = data.ayudaEscolarPrice || 2000;
+      }
+      loadAnsesPrices();
+
+      document.getElementById('form-update-anses-prices').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const updatedPrices = {
+          'anses-1': Number(document.getElementById('rate-anses-turnos').value),
+          'anses-2': Number(document.getElementById('rate-anses-partidas').value),
+          'anses-3': Number(document.getElementById('rate-anses-formularios').value),
+          ayudaEscolarPrice: Number(document.getElementById('rate-anses-escolar').value)
+        };
+        Store.updateAnsesPrices(updatedPrices);
+        showToast('¡Precios de Trámites ANSES actualizados con éxito!');
+      });
+
+      // 6. Comercios Amigos
+      function renderBusinesses() {
+        const bizList = Store.getBusinesses();
+        const container = document.getElementById('admin-businesses-list');
+        container.innerHTML = bizList.map(b => `
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.65rem 0.85rem; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface);">
+            <div style="display: flex; align-items: center; gap: 0.65rem;">
+              <img src="${b.image}" alt="${b.name}" style="width: 36px; height: 36px; object-fit: cover; border-radius: var(--radius-sm);">
+              <div>
+                <strong style="font-size: 0.875rem;">${b.name}</strong>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">${b.category} • WA: ${b.whatsapp}</div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-outline btn-biz-del" data-id="${b.id}" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; color: #ef4444;">
+              Quitar
+            </button>
+          </div>
+        `).join('');
+
+        document.querySelectorAll('.btn-biz-del').forEach(b => {
+          b.addEventListener('click', () => {
+            if (confirm('¿Quitar este comercio amigo de la lista?')) {
+              Store.deleteBusiness(b.getAttribute('data-id'));
+              renderBusinesses();
+              showToast('Comercio eliminado');
+            }
+          });
+        });
+      }
+
+      document.getElementById('form-add-business').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const newBiz = {
+          name: document.getElementById('biz-name').value.trim(),
+          category: document.getElementById('biz-category').value.trim(),
+          benefit: document.getElementById('biz-benefit').value.trim(),
+          whatsapp: document.getElementById('biz-whatsapp').value.trim(),
+          instagram: document.getElementById('biz-instagram').value.trim() || '@comercio',
+          image: document.getElementById('biz-image').value.trim()
+        };
+        Store.addBusiness(newBiz);
+        renderBusinesses();
+        document.getElementById('form-add-business').reset();
+        showToast('Comercio amigo agregado a la web');
+      });
+
+      // 7. Cambiar PIN
+      document.getElementById('form-change-pin').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const oldP = document.getElementById('pin-current').value.trim();
+        const newP = document.getElementById('pin-new').value.trim();
+        if (newP.length !== 6 || !/^\d{6}$/.test(newP)) {
+          alert('El nuevo PIN debe tener exactamente 6 dígitos numéricos.');
+          return;
+        }
+        const ok = await Store.changePin(oldP, newP);
+        if (ok) {
+          showToast('¡PIN de acceso actualizado con éxito!');
+          document.getElementById('form-change-pin').reset();
+        } else {
+          alert('El PIN actual ingresado no coincide.');
+        }
+      });
+
+      // Render inicial
+      renderInventory();
+      renderBusinesses();
+    });
+  </script>
+</body>
+</html>

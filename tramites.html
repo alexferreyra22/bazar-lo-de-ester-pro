@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centro de Gestiones & Trámites ANSES - Bazar Lo de Ester</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
+</head>
+<body>
+
+  <!-- Barra Superior de Información -->
+  <aside class="announcement-bar">
+    <div class="announcement-container">
+      <div class="announcement-info">
+        <span><span class="material-symbols-outlined text-[16px]">schedule</span> Lunes a Sábado de 8:30 a 20:30 hs</span>
+        <span><span class="material-symbols-outlined text-[16px]">location_on</span> Gato y Mancha 1129, Corrientes</span>
+      </div>
+      <div>
+        <a href="https://wa.me/5493794662177" target="_blank" class="announcement-badge">
+          <span class="material-symbols-outlined text-[14px]">support_agent</span>
+          Gestoría WhatsApp: 379 4662177
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header y Navegación Principal -->
+  <header class="main-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined" style="font-size: 28px;">storefront</span>
+        </div>
+        <div>
+          <div class="brand-title">Bazar Lo de Ester</div>
+          <div class="brand-subtitle">Polirrubro & Multiservicios</div>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="catalogo.html" class="nav-link">Productos Bazar</a>
+        <a href="impresiones.html" class="nav-link">Impresiones</a>
+        <a href="reparaciones.html" class="nav-link">Taller & Reparaciones</a>
+        <a href="tramites.html" class="nav-link active">Trámites ANSES</a>
+        <a href="comercios-amigos.html" class="nav-link">Comercios Amigos</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="admin-login.html" class="btn btn-outline" style="padding: 0.5rem 0.85rem;" title="Panel de Administrador">
+          <span class="material-symbols-outlined" style="font-size: 20px;">lock</span>
+          <span class="admin-btn-text">Admin</span>
+        </a>
+        <a href="https://wa.me/5493794662177?text=¡Hola%20Bazar%20Lo%20de%20Ester!%20Necesito%20ayuda%20con%20un%20trámite." target="_blank" class="btn btn-whatsapp">
+          <span class="material-symbols-outlined" style="font-size: 20px;">chat</span>
+          <span>Consultar Trámite</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero de la Sección de Trámites -->
+  <section class="hero-section" style="padding: 2.5rem 1.25rem;">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <span class="pill pill-blue" style="margin-bottom: 0.75rem;">GESTORÍA DIGITAL & ASESORAMIENTO BARRIAL</span>
+      <h1 class="hero-title" style="font-size: 2.3rem; margin-bottom: 0.75rem;">
+        Trámites ANSES & Documentación Oficial
+      </h1>
+      <p class="hero-desc" style="max-width: 800px; margin-bottom: 1rem;">
+        Te ayudamos a realizar tus gestiones digitales sin que tengas que lidiar con páginas web caídas ni filas eternas. 
+        Te sacamos los turnos, te gestionamos las partidas de nacimiento y te imprimimos todos los formularios prolijos.
+      </p>
+      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        <span class="pill pill-green"><span class="material-symbols-outlined" style="font-size: 15px;">check_circle</span> Turnos ANSES Oficiales</span>
+        <span class="pill pill-amber"><span class="material-symbols-outlined" style="font-size: 15px;">check_circle</span> Partidas de Nacimiento</span>
+        <span class="pill pill-blue"><span class="material-symbols-outlined" style="font-size: 15px;">check_circle</span> Formularios AUH y Pensiones</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenido de Trámites -->
+  <main class="container">
+    
+    <!-- BANNER DE CAMPAÑA DE TEMPORADA: AYUDA ESCOLAR (ACTIVABLE/DESACTIVABLE POR EL ADMIN) -->
+    <div id="ayuda-escolar-banner" style="display: none; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b; border-radius: var(--radius-xl); padding: 2rem; margin-bottom: 2.5rem; box-shadow: var(--shadow-md);">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+        <div>
+          <span class="pill pill-amber" style="background: #b45309; color: #fff; margin-bottom: 0.5rem;">🎒 CAMPAÑA DE TEMPORADA ACTIVA</span>
+          <h2 style="font-size: 1.75rem; color: #78350f; margin-bottom: 0.5rem;">Gestión de Ayuda Escolar Anual & Libreta AUH</h2>
+          <p style="color: #92400e; font-size: 0.95rem; max-width: 700px; line-height: 1.5;">
+            ¡Empezó la temporada escolar! Te descargamos el Formulario 2.68 oficial, te asesoramos cómo hacerlo firmar por la escuela y lo cargamos en el sistema de ANSES para que cobres la asignación sin demoras.
+          </p>
+          <div style="font-size: 1.15rem; font-weight: 800; color: #78350f; margin-top: 0.65rem;">
+            Costo del servicio de gestión e impresión: <span id="banner-ayuda-escolar-price">$2.000</span>
+          </div>
+        </div>
+        <div>
+          <a href="https://wa.me/5493794662177?text=¡Hola%20Bazar%20Lo%20de%20Ester!%20Quiero%20gestionar%20el%20formulario%20de%20Ayuda%20Escolar%20de%20ANSES." target="_blank" class="btn btn-primary" style="background: #92400e; border-color: #78350f;">
+            <span class="material-symbols-outlined">edit_document</span>
+            Gestionar Ayuda Escolar por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- TARJETAS DE TRÁMITES OFICIALES PERMANENTES -->
+    <div class="section-header">
+      <div class="section-tag"><span class="material-symbols-outlined">assignment</span> Trámites Disponibles</div>
+      <h2 class="section-title">Servicios Digitales Oficiales en el Local</h2>
+      <p class="section-desc">Acercate con tu DNI a Gato y Mancha 1129 o mandanos tus datos por WhatsApp.</p>
+    </div>
+
+    <div class="cards-grid" id="tramites-grid">
+      <!-- Carga dinámica -->
+    </div>
+
+    <!-- Preguntas Frecuentes y Requisitos -->
+    <div style="margin-top: 3.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 2.5rem;">
+      <h3 style="font-size: 1.35rem; color: var(--primary); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span class="material-symbols-outlined" style="color: var(--secondary);">help</span>
+        Preguntas Frecuentes sobre las Gestiones
+      </h3>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+        <div>
+          <h4 style="font-size: 1rem; color: var(--text-main); margin-bottom: 0.35rem;">¿Qué necesito traer para sacar un turno de ANSES?</h4>
+          <p style="font-size: 0.875rem; color: var(--text-sub); line-height: 1.5;">
+            Solo necesitás traer tu DNI físico (o foto del frente y dorso) y tu número de CUIL. Te buscamos el día y horario más conveniente y te entregamos la constancia de turno impresa.
+          </p>
+        </div>
+        <div>
+          <h4 style="font-size: 1rem; color: var(--text-main); margin-bottom: 0.35rem;">¿Cuánto demora una Partida de Nacimiento?</h4>
+          <p style="font-size: 0.875rem; color: var(--text-sub); line-height: 1.5;">
+            Dependiendo del Registro Provincial de las Personas, suele demorar entre 24 y 72 horas hábiles. Te avisamos por WhatsApp apenas esté lista y te la entregamos legalizada e impresa.
+          </p>
+        </div>
+        <div>
+          <h4 style="font-size: 1rem; color: var(--text-main); margin-bottom: 0.35rem;">¿Los formularios vienen listos para presentar?</h4>
+          <p style="font-size: 0.875rem; color: var(--text-sub); line-height: 1.5;">
+            Sí. Llenamos todos los campos digitalmente para que no haya tachaduras ni errores que ANSES pueda rechazar, e imprimimos en papel blanco de alto gramaje con códigos de barra nítidos.
+          </p>
+        </div>
+        <div>
+          <h4 style="font-size: 1rem; color: var(--text-main); margin-bottom: 0.35rem;">¿Atienden consultas por WhatsApp?</h4>
+          <p style="font-size: 0.875rem; color: var(--text-sub); line-height: 1.5;">
+            ¡Sí! Podés escribirnos directamente al <strong>379 4662177</strong> de lunes a sábado de 8:30 a 20:30 hs y te asesoramos al instante.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Botón Flotante de WhatsApp -->
+  <a href="https://wa.me/5493794662177?text=¡Hola%20Bazar%20Lo%20de%20Ester!%20Quería%20hacerles%20una%20consulta%20por%20un%20trámite." target="_blank" class="floating-whatsapp" title="Escribir por WhatsApp">
+    <span class="material-symbols-outlined">chat</span>
+  </a>
+
+  <!-- Footer Principal -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Bazar Lo de Ester</h3>
+        <p style="margin-bottom: 1rem;">
+          Centro barrial de gestoría y trámites en Corrientes Capital.
+        </p>
+        <div style="font-size: 0.875rem; color: #94a3b8;">
+          <div><strong>Local:</strong> Gato y Mancha 1129, Corrientes</div>
+          <div><strong>WhatsApp:</strong> 379 4662177</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="catalogo.html">Catálogo Bazar</a></li>
+          <li><a href="impresiones.html">Fotocopias & Copias</a></li>
+          <li><a href="reparaciones.html">Taller Técnico</a></li>
+          <li><a href="comercios-amigos.html">Comercios Amigos</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Administrador</h4>
+        <ul class="footer-links">
+          <li><a href="admin-login.html">Ingreso Administrador</a></li>
+          <li><a href="admin.html">Activar/Pausar Ayuda Escolar</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Horarios</h4>
+        <p style="font-size: 0.875rem; color: #94a3b8; line-height: 1.6;">
+          Lunes a Sábado: 8:30 a 20:30 hs.<br>
+          Gato y Mancha 1129, Corrientes.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Bazar Lo de Ester. Todos los derechos reservados.</div>
+      <div>Trámites ANSES & Documentación</div>
+    </div>
+  </footer>
+
+  <script src="store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const anses = Store.getAnses();
+
+      // Control del Banner de Temporada de Ayuda Escolar
+      const banner = document.getElementById('ayuda-escolar-banner');
+      if (anses.ayudaEscolarActive) {
+        banner.style.display = 'block';
+        const escolarPrice = anses.ayudaEscolarPrice || 2000;
+        const bannerPriceEl = document.getElementById('banner-ayuda-escolar-price');
+        if (bannerPriceEl) bannerPriceEl.textContent = `$${escolarPrice.toLocaleString('es-AR')}`;
+      } else {
+        banner.style.display = 'none';
+      }
+
+      // Renderizar trámites fijos
+      const grid = document.getElementById('tramites-grid');
+      grid.innerHTML = anses.tramites.map(t => `
+        <div class="product-card" style="padding: 1.75rem;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+              <span class="pill pill-blue">${t.badge}</span>
+              <span style="font-size: 1.35rem; font-weight: 800; color: var(--primary);">$${t.price.toLocaleString('es-AR')}</span>
+            </div>
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--primary); margin-bottom: 0.5rem;">${t.title}</h3>
+            <p style="font-size: 0.9rem; color: var(--text-sub); line-height: 1.6; margin-bottom: 1.25rem;">${t.description}</p>
+            <div style="background: var(--surface-dim); padding: 0.75rem; border-radius: var(--radius-md); font-size: 0.8rem; color: var(--text-sub); margin-bottom: 1.5rem;">
+              <strong>📋 Requisitos:</strong> ${t.requisitos}
+            </div>
+          </div>
+          <div class="product-footer" style="padding-top: 1rem;">
+            <a href="https://wa.me/5493794662177?text=${encodeURIComponent('¡Hola Bazar Lo de Ester! Quisiera gestionar el trámite: ' + t.title + '.')}" target="_blank" class="btn btn-whatsapp" style="width: 100%; justify-content: center;">
+              <span class="material-symbols-outlined">chat</span>
+              Solicitar por WhatsApp
+            </a>
+          </div>
+        </div>
+      `).join('');
+    });
+  </script>
+</body>
+</html>

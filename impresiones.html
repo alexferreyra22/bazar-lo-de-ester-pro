@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centro de Impresiones & Copiado Digital - Bazar Lo de Ester</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖨️</text></svg>">
+</head>
+<body>
+
+  <!-- Barra Superior de Información -->
+  <aside class="announcement-bar">
+    <div class="announcement-container">
+      <div class="announcement-info">
+        <span><span class="material-symbols-outlined text-[16px]">schedule</span> Lunes a Sábado de 8:30 a 20:30 hs</span>
+        <span><span class="material-symbols-outlined text-[16px]">location_on</span> Gato y Mancha 1129, Corrientes</span>
+      </div>
+      <div>
+        <a href="https://wa.me/5493794662177" target="_blank" class="announcement-badge">
+          <span class="material-symbols-outlined text-[14px]">chat</span>
+          WhatsApp de Impresiones: 379 4662177
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header y Navegación Principal -->
+  <header class="main-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined" style="font-size: 28px;">storefront</span>
+        </div>
+        <div>
+          <div class="brand-title">Bazar Lo de Ester</div>
+          <div class="brand-subtitle">Polirrubro & Multiservicios</div>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="catalogo.html" class="nav-link">Productos Bazar</a>
+        <a href="impresiones.html" class="nav-link active">Impresiones</a>
+        <a href="reparaciones.html" class="nav-link">Taller & Reparaciones</a>
+        <a href="tramites.html" class="nav-link">Trámites ANSES</a>
+        <a href="comercios-amigos.html" class="nav-link">Comercios Amigos</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="admin-login.html" class="btn btn-outline" style="padding: 0.5rem 0.85rem;" title="Panel de Administrador">
+          <span class="material-symbols-outlined" style="font-size: 20px;">lock</span>
+          <span class="admin-btn-text">Admin</span>
+        </a>
+        <a href="https://wa.me/5493794662177?text=¡Hola%20Bazar%20Lo%20de%20Ester!%20Tengo%20un%20archivo%20para%20imprimir." target="_blank" class="btn btn-whatsapp">
+          <span class="material-symbols-outlined" style="font-size: 20px;">upload_file</span>
+          <span>Enviar Archivo</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero de la Sección de Impresiones -->
+  <section class="hero-section" style="padding: 2.5rem 1.25rem;">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <span class="pill pill-green" style="margin-bottom: 0.75rem;">IMPRESIÓN DIGITAL Y COPIADO AL INSTANTE</span>
+      <h1 class="hero-title" style="font-size: 2.3rem; margin-bottom: 0.75rem;">
+        Cotizador de Copias e Impresiones Digitales
+      </h1>
+      <p class="hero-desc" style="max-width: 750px; margin-bottom: 1rem;">
+        Equipamiento láser de alta definición para impresiones escolares, laborales y fotos familiares. 
+        Calculá el importe exacto y mandá tus archivos por WhatsApp para retirar listo en Gato y Mancha 1129.
+      </p>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <span class="pill pill-blue"><span class="material-symbols-outlined" style="font-size: 15px;">check_circle</span> Copias B&N y Color</span>
+        <span class="pill pill-amber"><span class="material-symbols-outlined" style="font-size: 15px;">check_circle</span> Papel Sticker & Fotográfico</span>
+        <span class="pill pill-green"><span class="material-symbols-outlined" style="font-size: 15px;">check_circle</span> Simple y Doble Faz</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cotizador Interactivo + Tabla de Tarifas -->
+  <main class="container">
+    <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2.5rem; align-items: start;">
+      
+      <!-- Panel Izquierdo: Cotizador en Vivo -->
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 2rem; box-shadow: var(--shadow-md);">
+        <h2 style="font-size: 1.4rem; color: var(--primary); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+          <span class="material-symbols-outlined" style="color: var(--secondary);">calculate</span>
+          Calculadora de Impresiones en Vivo
+        </h2>
+        <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.75rem;">
+          Completá las opciones para calcular el presupuesto en tiempo real:
+        </p>
+
+        <form id="print-calc-form" style="display: flex; flex-direction: column; gap: 1.25rem;">
+          
+          <!-- Tipo de Impresión -->
+          <div>
+            <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 0.5rem;">
+              Tipo de Impresión o Papel:
+            </label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <label class="print-option-label" style="border: 2px solid var(--border); padding: 0.75rem; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                <input type="radio" name="print_type" value="byn" checked>
+                <div>
+                  <div style="font-weight: 700; font-size: 0.9rem;">Blanco y Negro</div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);" id="rate-label-byn">$200 / carilla</div>
+                </div>
+              </label>
+
+              <label class="print-option-label" style="border: 2px solid var(--border); padding: 0.75rem; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                <input type="radio" name="print_type" value="color">
+                <div>
+                  <div style="font-weight: 700; font-size: 0.9rem;">Color Láser</div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);" id="rate-label-color">$400 / carilla</div>
+                </div>
+              </label>
+
+              <label class="print-option-label" style="border: 2px solid var(--border); padding: 0.75rem; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                <input type="radio" name="print_type" value="sticker">
+                <div>
+                  <div style="font-weight: 700; font-size: 0.9rem;">Papel Sticker</div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);" id="rate-label-sticker">$800 / hoja</div>
+                </div>
+              </label>
+
+              <label class="print-option-label" style="border: 2px solid var(--border); padding: 0.75rem; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                <input type="radio" name="print_type" value="foto">
+                <div>
+                  <div style="font-weight: 700; font-size: 0.9rem;">Papel Fotográfico HD</div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);" id="rate-label-foto">$900 / foto</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Modo Faz (Simple o Doble) -->
+          <div id="faz-container">
+            <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 0.5rem;">
+              Faz de Impresión:
+            </label>
+            <div style="display: flex; gap: 1rem;">
+              <label style="flex: 1; border: 1px solid var(--border); padding: 0.65rem 1rem; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                <input type="radio" name="faz_type" value="simple" checked>
+                <span style="font-weight: 600; font-size: 0.875rem;">Simple Faz (1 cara)</span>
+              </label>
+              <label id="doble-faz-label" style="flex: 1; border: 1px solid var(--border); padding: 0.65rem 1rem; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                <input type="radio" name="faz_type" value="doble">
+                <span style="font-weight: 600; font-size: 0.875rem;">Doble Faz (Frente y Dorso)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Cantidad de hojas o carillas -->
+          <div>
+            <label for="sheet-qty" style="font-size: 0.85rem; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 0.5rem;">
+              Cantidad de carillas / hojas:
+            </label>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <button type="button" id="btn-minus-qty" class="btn btn-outline" style="width: 44px; height: 44px; padding: 0;">-</button>
+              <input type="number" id="sheet-qty" value="1" min="1" max="5000" style="flex: 1; height: 44px; text-align: center; font-size: 1.15rem; font-weight: 800; border: 2px solid var(--border); border-radius: var(--radius-md);">
+              <button type="button" id="btn-plus-qty" class="btn btn-outline" style="width: 44px; height: 44px; padding: 0;">+</button>
+            </div>
+          </div>
+
+          <!-- Resumen del Presupuesto Calculado -->
+          <div style="background: var(--surface-dim); border: 2px dashed #cbd5e1; border-radius: var(--radius-lg); padding: 1.25rem; margin-top: 0.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <span style="font-size: 0.875rem; color: var(--text-sub);">Detalle de selección:</span>
+              <span id="calc-summary-text" style="font-size: 0.875rem; font-weight: 700; color: var(--primary);">1 carilla B&N Simple Faz</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 0.5rem; border-top: 1px solid var(--border);">
+              <span style="font-size: 1rem; font-weight: 700; color: var(--text-main);">Presupuesto Total Estimado:</span>
+              <span id="calc-total-price" style="font-size: 1.85rem; font-weight: 800; color: var(--primary);">$200</span>
+            </div>
+          </div>
+
+          <!-- Botón de Envío por WhatsApp -->
+          <button type="button" id="btn-send-whatsapp-calc" class="btn btn-whatsapp" style="padding: 0.85rem 1.5rem; font-size: 1rem; justify-content: center; width: 100%;">
+            <span class="material-symbols-outlined">send</span>
+            Enviar Pedido & Archivo por WhatsApp
+          </button>
+        </form>
+      </div>
+
+      <!-- Panel Derecho: Tarifario Oficial & Características -->
+      <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+        
+        <div class="table-card">
+          <div style="padding: 1.25rem 1.5rem; background: var(--primary); color: #fff;">
+            <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.25rem;">Tarifas Oficiales de Impresión</h3>
+            <p style="font-size: 0.8rem; opacity: 0.9;">Bazar Lo de Ester • Precios lineales transparentes</p>
+          </div>
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Servicio</th>
+                <th>Simple Faz</th>
+                <th>Doble Faz</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Fotocopia B&N Láser</strong><br><span style="font-size: 0.75rem; color: var(--text-muted);">Papel obra 75/80g</span></td>
+                <td><strong style="color: var(--primary);" id="table-rate-byn">$200</strong></td>
+                <td><strong style="color: var(--primary);" id="table-rate-byn-df">$360</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Impresión Color Láser</strong><br><span style="font-size: 0.75rem; color: var(--text-muted);">Gráficos, textos, carátulas</span></td>
+                <td><strong style="color: var(--primary);" id="table-rate-color">$400</strong></td>
+                <td><strong style="color: var(--primary);" id="table-rate-color-df">$720</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Papel Sticker Autoadhesivo</strong><br><span style="font-size: 0.75rem; color: var(--text-muted);">Planchas para candy bar / rotulados</span></td>
+                <td><strong style="color: var(--primary);" id="table-rate-sticker">$800</strong></td>
+                <td><span style="color: var(--text-muted); font-size: 0.8rem;">No aplica</span></td>
+              </tr>
+              <tr>
+                <td><strong>Papel Fotográfico HD Glossy</strong><br><span style="font-size: 0.75rem; color: var(--text-muted);">Brillante de 200g resistente al agua</span></td>
+                <td><strong style="color: var(--primary);" id="table-rate-foto">$900</strong></td>
+                <td><span style="color: var(--text-muted); font-size: 0.8rem;">No aplica</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Caja de Compromiso de Servicio -->
+        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm);">
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="width: 36px; height: 36px; background: #dcfce7; color: #166534; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center;">
+              <span class="material-symbols-outlined">verified</span>
+            </div>
+            <h4 style="font-size: 1rem; color: var(--primary);">Atención Rápida en el Barrio</h4>
+          </div>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.875rem; color: var(--text-sub);">
+            <li>✓ <strong>Sin pedidos mínimos:</strong> Imprimí desde 1 sola copia hasta resmas completas.</li>
+            <li>✓ <strong>Formatos soportados:</strong> PDF, Word, Excel, PowerPoint, JPG, PNG.</li>
+            <li>✓ <strong>Calidad de tóner original:</strong> Textos nítidos y sin manchas.</li>
+            <li>✓ <strong>Retiro al instante:</strong> Gato y Mancha 1129, Corrientes.</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Botón Flotante de WhatsApp -->
+  <a href="https://wa.me/5493794662177?text=¡Hola%20Bazar%20Lo%20de%20Ester!%20Tengo%20un%20archivo%20para%20imprimir." target="_blank" class="floating-whatsapp" title="Escribir por WhatsApp">
+    <span class="material-symbols-outlined">chat</span>
+  </a>
+
+  <!-- Footer Principal -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Bazar Lo de Ester</h3>
+        <p style="margin-bottom: 1rem;">
+          Centro de copiado e impresiones rápidas. Fotocopias en blanco y negro, color, papel sticker y fotografía.
+        </p>
+        <div style="font-size: 0.875rem; color: #94a3b8;">
+          <div><strong>Local:</strong> Gato y Mancha 1129, Corrientes</div>
+          <div><strong>WhatsApp:</strong> 379 4662177</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="catalogo.html">Catálogo Bazar</a></li>
+          <li><a href="reparaciones.html">Taller Técnico</a></li>
+          <li><a href="tramites.html">Trámites ANSES</a></li>
+          <li><a href="comercios-amigos.html">Comercios Amigos</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Administración</h4>
+        <ul class="footer-links">
+          <li><a href="admin-login.html">Ingreso Administrador</a></li>
+          <li><a href="admin.html">Modificar Tarifas</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Horarios</h4>
+        <p style="font-size: 0.875rem; color: #94a3b8; line-height: 1.6;">
+          Lunes a Sábado: 8:30 a 20:30 hs.<br>
+          Domingos: 9:30 a 13:30 hs.<br>
+          Gato y Mancha 1129, Corrientes.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Bazar Lo de Ester. Todos los derechos reservados.</div>
+      <div>Centro de Impresiones & Copiado</div>
+    </div>
+  </footer>
+
+  <script src="store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const rates = Store.getRates().fotocopias;
+
+      // Actualizar etiquetas con tarifas dinámicas de Store
+      document.getElementById('rate-label-byn').textContent = `$${rates.byn_simple} / carilla`;
+      document.getElementById('rate-label-color').textContent = `$${rates.color_simple} / carilla`;
+      document.getElementById('rate-label-sticker').textContent = `$${rates.sticker} / hoja`;
+      document.getElementById('rate-label-foto').textContent = `$${rates.foto_hd} / foto`;
+
+      // Tabla lateral
+      document.getElementById('table-rate-byn').textContent = `$${rates.byn_simple}`;
+      document.getElementById('table-rate-byn-df').textContent = `$${Math.round(rates.byn_simple * rates.doble_faz_factor)}`;
+      document.getElementById('table-rate-color').textContent = `$${rates.color_simple}`;
+      document.getElementById('table-rate-color-df').textContent = `$${Math.round(rates.color_simple * rates.doble_faz_factor)}`;
+      document.getElementById('table-rate-sticker').textContent = `$${rates.sticker}`;
+      document.getElementById('table-rate-foto').textContent = `$${rates.foto_hd}`;
+
+      const printTypeInputs = document.querySelectorAll('input[name="print_type"]');
+      const fazTypeInputs = document.querySelectorAll('input[name="faz_type"]');
+      const qtyInput = document.getElementById('sheet-qty');
+      const btnMinus = document.getElementById('btn-minus-qty');
+      const btnPlus = document.getElementById('btn-plus-qty');
+      const summaryText = document.getElementById('calc-summary-text');
+      const totalPrice = document.getElementById('calc-total-price');
+      const btnSendWa = document.getElementById('btn-send-whatsapp-calc');
+      const dobleFazLabel = document.getElementById('doble-faz-label');
+
+      function calculate() {
+        const selectedType = document.querySelector('input[name="print_type"]:checked').value;
+        const selectedFaz = document.querySelector('input[name="faz_type"]:checked').value;
+        const qty = Math.max(1, parseInt(qtyInput.value) || 1);
+
+        // Si es sticker o foto, deshabilitar doble faz
+        if (selectedType === 'sticker' || selectedType === 'foto') {
+          dobleFazLabel.style.opacity = '0.4';
+          dobleFazLabel.style.pointerEvents = 'none';
+          document.querySelector('input[name="faz_type"][value="simple"]').checked = true;
+        } else {
+          dobleFazLabel.style.opacity = '1';
+          dobleFazLabel.style.pointerEvents = 'auto';
+        }
+
+        let unitPrice = 0;
+        let typeName = '';
+
+        if (selectedType === 'byn') {
+          typeName = 'Blanco y Negro';
+          unitPrice = (selectedFaz === 'doble') ? Math.round(rates.byn_simple * rates.doble_faz_factor) : rates.byn_simple;
+        } else if (selectedType === 'color') {
+          typeName = 'Color Láser';
+          unitPrice = (selectedFaz === 'doble') ? Math.round(rates.color_simple * rates.doble_faz_factor) : rates.color_simple;
+        } else if (selectedType === 'sticker') {
+          typeName = 'Papel Sticker Autoadhesivo';
+          unitPrice = rates.sticker;
+        } else if (selectedType === 'foto') {
+          typeName = 'Papel Fotográfico HD';
+          unitPrice = rates.foto_hd;
+        }
+
+        const total = unitPrice * qty;
+        const fazText = (selectedType === 'sticker' || selectedType === 'foto') ? '' : (selectedFaz === 'doble' ? ' (Doble Faz)' : ' (Simple Faz)');
+        
+        summaryText.textContent = `${qty} ${qty === 1 ? 'unidad' : 'unidades'} • ${typeName}${fazText}`;
+        totalPrice.textContent = `$${total.toLocaleString('es-AR')}`;
+
+        return {
+          typeName,
+          fazText,
+          qty,
+          total
+        };
+      }
+
+      // Eventos
+      printTypeInputs.forEach(i => i.addEventListener('change', calculate));
+      fazTypeInputs.forEach(i => i.addEventListener('change', calculate));
+      qtyInput.addEventListener('input', calculate);
+
+      btnMinus.addEventListener('click', () => {
+        let val = parseInt(qtyInput.value) || 1;
+        if (val > 1) {
+          qtyInput.value = val - 1;
+          calculate();
+        }
+      });
+
+      btnPlus.addEventListener('click', () => {
+        let val = parseInt(qtyInput.value) || 1;
+        qtyInput.value = val + 1;
+        calculate();
+      });
+
+      // Enviar cotización prearmada por WhatsApp
+      btnSendWa.addEventListener('click', () => {
+        const info = calculate();
+        const msg = `¡Hola Bazar Lo de Ester! Quiero encargar impresiones:\n- Servicio: ${info.typeName}${info.fazText}\n- Cantidad: ${info.qty}\n- Cotización calculada: $${info.total.toLocaleString('es-AR')}\n\nAdjunto a continuación los archivos. ¡Gracias!`;
+        window.open(`https://wa.me/5493794662177?text=${encodeURIComponent(msg)}`, '_blank');
+      });
+
+      // Cálculo inicial
+      calculate();
+    });
+  </script>
+</body>
+</html>

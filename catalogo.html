@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Bazar & Tecnología - Bazar Lo de Ester</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧉</text></svg>">
+  <style>
+    /* Estilos del Carrito Lateral */
+    .cart-drawer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .cart-drawer-overlay.open {
+      display: block;
+      opacity: 1;
+    }
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      bottom: 0;
+      width: 100%;
+      max-width: 420px;
+      background: var(--surface);
+      box-shadow: -5px 0 25px rgba(0,0,0,0.15);
+      z-index: 1001;
+      display: flex;
+      flex-direction: column;
+      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .cart-drawer.open {
+      right: 0;
+    }
+    .cart-header {
+      padding: 1.25rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .cart-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .cart-item {
+      display: flex;
+      gap: 0.75rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+    }
+    .cart-item-img {
+      width: 60px;
+      height: 60px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+    }
+    .cart-footer {
+      padding: 1.25rem;
+      border-top: 1px solid var(--border);
+      background: var(--surface-dim);
+    }
+    .filter-chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-sub);
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .filter-chip.active, .filter-chip:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra Superior de Información -->
+  <aside class="announcement-bar">
+    <div class="announcement-container">
+      <div class="announcement-info">
+        <span><span class="material-symbols-outlined text-[16px]">schedule</span> Lunes a Sábado de 8:30 a 20:30 hs</span>
+        <span><span class="material-symbols-outlined text-[16px]">location_on</span> Gato y Mancha 1129, Corrientes</span>
+      </div>
+      <div>
+        <span class="announcement-badge">
+          🎉 10% OFF pagando en efectivo al retirar
+        </span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header y Navegación Principal -->
+  <header class="main-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined" style="font-size: 28px;">storefront</span>
+        </div>
+        <div>
+          <div class="brand-title">Bazar Lo de Ester</div>
+          <div class="brand-subtitle">Polirrubro & Multiservicios</div>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="catalogo.html" class="nav-link active">Productos Bazar</a>
+        <a href="impresiones.html" class="nav-link">Impresiones</a>
+        <a href="reparaciones.html" class="nav-link">Taller & Reparaciones</a>
+        <a href="tramites.html" class="nav-link">Trámites ANSES</a>
+        <a href="comercios-amigos.html" class="nav-link">Comercios Amigos</a>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" id="btn-open-cart" class="btn btn-primary" style="position: relative;">
+          <span class="material-symbols-outlined">shopping_bag</span>
+          <span>Carrito</span>
+          <span id="cart-badge-count" style="background: var(--secondary-container); color: #fff; font-size: 0.75rem; font-weight: 800; padding: 0.1rem 0.45rem; border-radius: 9999px;">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Encabezado de Catálogo -->
+  <section class="hero-section" style="padding: 2.5rem 1.25rem;">
+    <div style="max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+      <div>
+        <span class="pill pill-amber" style="margin-bottom: 0.5rem;">STOCK PERMANENTE EN LOCAL</span>
+        <h1 class="hero-title" style="font-size: 2.3rem; margin-bottom: 0.5rem;">Catálogo de Bazar, Termos & Tecnología</h1>
+        <p class="hero-desc" style="margin-bottom: 0;">Agregá productos al carrito para encargar directo por WhatsApp o consultanos por modelos específicos.</p>
+      </div>
+      
+      <!-- Buscador en tiempo real -->
+      <div style="min-width: 280px; flex: 1; max-width: 400px;">
+        <div style="position: relative;">
+          <span class="material-symbols-outlined" style="position: absolute; left: 12px; top: 12px; color: var(--text-muted);">search</span>
+          <input type="text" id="catalog-search" placeholder="Buscar mate, cargador, cable..." style="width: 100%; padding: 0.75rem 1rem 0.75rem 2.5rem; border: 2px solid var(--border); border-radius: var(--radius-md); font-size: 0.95rem;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenedor Principal con Filtros y Grilla -->
+  <main class="container">
+    <!-- Chips de Filtros -->
+    <div style="display: flex; gap: 0.65rem; overflow-x: auto; padding-bottom: 1rem; margin-bottom: 2rem;">
+      <button class="filter-chip active" data-category="todos">Todos los Productos</button>
+      <button class="filter-chip" data-category="Bazar Matero">Bazar Matero</button>
+      <button class="filter-chip" data-category="Tecnología">Tecnología & Cables</button>
+      <button class="filter-chip" data-category="Audio & Móvil">Audio & Móvil</button>
+      <button class="filter-chip" data-category="Hogar">Hogar & Regalería</button>
+    </div>
+
+    <!-- Grilla de Productos -->
+    <div class="cards-grid" id="catalog-products-grid">
+      <!-- Se llena dinámicamente con store.js -->
+    </div>
+  </main>
+
+  <!-- Drawer Lateral del Carrito de Compras -->
+  <div class="cart-drawer-overlay" id="cart-overlay"></div>
+  <aside class="cart-drawer" id="cart-drawer">
+    <div class="cart-header">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <span class="material-symbols-outlined" style="color: var(--primary); font-size: 24px;">shopping_bag</span>
+        <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--primary);">Tu Carrito de Compras</h3>
+      </div>
+      <button type="button" id="btn-close-cart" style="background: none; border: none; cursor: pointer; color: var(--text-muted);">
+        <span class="material-symbols-outlined" style="font-size: 24px;">close</span>
+      </button>
+    </div>
+
+    <div class="cart-body" id="cart-items-container">
+      <!-- Items agregados -->
+    </div>
+
+    <div class="cart-footer">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-sub);">
+        <span>Subtotal productos:</span>
+        <span id="cart-subtotal" style="font-weight: 700;">$0</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem; font-size: 0.85rem; color: #166534; font-weight: 700;">
+        <span>Descuento efectivo (-10%):</span>
+        <span id="cart-discount">-$0</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; margin-bottom: 1.25rem; font-size: 1.25rem; font-weight: 800; color: var(--primary); border-top: 1px solid var(--border); padding-top: 0.75rem;">
+        <span>Total a pagar:</span>
+        <span id="cart-total">$0</span>
+      </div>
+
+      <button type="button" id="btn-checkout-whatsapp" class="btn btn-whatsapp" style="width: 100%; padding: 0.85rem 1rem; font-size: 1rem;">
+        <span class="material-symbols-outlined">chat</span>
+        Finalizar Pedido por WhatsApp
+      </button>
+    </div>
+  </aside>
+
+  <!-- Botón Flotante de WhatsApp -->
+  <a href="https://wa.me/5493794662177?text=¡Hola%20Bazar%20Lo%20de%20Ester!%20Quisiera%20consultar%20por%20un%20producto." target="_blank" class="floating-whatsapp" title="Escribir por WhatsApp">
+    <span class="material-symbols-outlined">chat</span>
+  </a>
+
+  <!-- Footer Principal -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Bazar Lo de Ester</h3>
+        <p style="margin-bottom: 1rem;">
+          Artículos para el hogar, mates de colección, termos térmicos y accesorios tecnológicos en Corrientes Capital.
+        </p>
+        <div style="font-size: 0.875rem; color: #94a3b8;">
+          <div><strong>Dirección:</strong> Gato y Mancha 1129, Corrientes</div>
+          <div><strong>WhatsApp:</strong> 379 4662177</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="impresiones.html">Centro de Impresiones</a></li>
+          <li><a href="reparaciones.html">Taller de Reparaciones</a></li>
+          <li><a href="tramites.html">Trámites ANSES</a></li>
+          <li><a href="comercios-amigos.html">Comercios Amigos</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Administrador</h4>
+        <ul class="footer-links">
+          <li><a href="admin-login.html">Ingreso Administrador</a></li>
+          <li><a href="admin.html">Cargar y Modificar Stock</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Atención</h4>
+        <p style="font-size: 0.875rem; color: #94a3b8; line-height: 1.6;">
+          Horario corrido de 8:30 a 20:30 hs.<br>
+          Gato y Mancha 1129, Corrientes.<br>
+          ¡Vení a visitarnos o pedinos por WhatsApp!
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Bazar Lo de Ester. Todos los derechos reservados.</div>
+      <div>Catálogo Oficial de Productos</div>
+    </div>
+  </footer>
+
+  <script src="store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let currentCategory = 'todos';
+      let searchQuery = '';
+
+      const grid = document.getElementById('catalog-products-grid');
+      const searchInput = document.getElementById('catalog-search');
+      const filterChips = document.querySelectorAll('.filter-chip');
+      
+      const cartOverlay = document.getElementById('cart-overlay');
+      const cartDrawer = document.getElementById('cart-drawer');
+      const btnOpenCart = document.getElementById('btn-open-cart');
+      const btnCloseCart = document.getElementById('btn-close-cart');
+      const cartItemsContainer = document.getElementById('cart-items-container');
+      const cartBadgeCount = document.getElementById('cart-badge-count');
+      const cartSubtotal = document.getElementById('cart-subtotal');
+      const cartDiscount = document.getElementById('cart-discount');
+      const cartTotal = document.getElementById('cart-total');
+      const btnCheckoutWa = document.getElementById('btn-checkout-whatsapp');
+
+      function renderProducts() {
+        const products = Store.getProducts();
+        const filtered = products.filter(p => {
+          const matchCat = currentCategory === 'todos' || p.category.toLowerCase().includes(currentCategory.toLowerCase());
+          const matchSearch = searchQuery === '' || p.name.toLowerCase().includes(searchQuery) || p.description.toLowerCase().includes(searchQuery);
+          return matchCat && matchSearch;
+        });
+
+        if (filtered.length === 0) {
+          grid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: var(--surface); border-radius: var(--radius-lg); border: 1px dashed var(--border);">
+              <span class="material-symbols-outlined" style="font-size: 48px; color: var(--text-muted); margin-bottom: 0.5rem;">search_off</span>
+              <h3 style="font-size: 1.25rem; color: var(--primary);">No se encontraron productos</h3>
+              <p style="color: var(--text-muted); font-size: 0.9rem;">Probá buscando con otro término o seleccioná otra categoría.</p>
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = filtered.map(prod => `
+          <div class="product-card">
+            <div>
+              <div class="product-image-container">
+                <img src="${prod.image}" alt="${prod.name}" class="product-img">
+                <span class="badge-stock">Stock: ${prod.stock} un.</span>
+              </div>
+              <div class="product-category">${prod.category}</div>
+              <h3 class="product-name">${prod.name}</h3>
+              <p class="product-desc">${prod.description}</p>
+            </div>
+            <div class="product-footer">
+              <div class="product-price">$${prod.price.toLocaleString('es-AR')}</div>
+              <button type="button" class="btn btn-primary btn-add-cart" data-id="${prod.id}" style="padding: 0.5rem 0.85rem;">
+                <span class="material-symbols-outlined" style="font-size: 18px;">add_shopping_cart</span>
+                Agregar
+              </button>
+            </div>
+          </div>
+        `).join('');
+
+        // Enganchar botones de agregar al carrito
+        document.querySelectorAll('.btn-add-cart').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-id');
+            Store.addToCart(id, 1);
+            updateCartUI();
+            openCart();
+          });
+        });
+      }
+
+      function updateCartUI() {
+        const cart = Store.getCart();
+        const totalQty = cart.reduce((acc, i) => acc + i.qty, 0);
+        cartBadgeCount.textContent = totalQty;
+
+        if (cart.length === 0) {
+          cartItemsContainer.innerHTML = `
+            <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
+              <span class="material-symbols-outlined" style="font-size: 48px; opacity: 0.5; margin-bottom: 0.5rem;">shopping_basket</span>
+              <p>El carrito está vacío.</p>
+              <p style="font-size: 0.8rem;">¡Sumá productos de bazar o tecnología!</p>
+            </div>
+          `;
+          cartSubtotal.textContent = '$0';
+          cartDiscount.textContent = '-$0';
+          cartTotal.textContent = '$0';
+          btnCheckoutWa.disabled = true;
+          btnCheckoutWa.style.opacity = '0.5';
+          return;
+        }
+
+        btnCheckoutWa.disabled = false;
+        btnCheckoutWa.style.opacity = '1';
+
+        cartItemsContainer.innerHTML = cart.map(item => `
+          <div class="cart-item">
+            <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+            <div style="flex: 1;">
+              <h4 style="font-size: 0.875rem; font-weight: 700; color: var(--text-main);">${item.name}</h4>
+              <div style="font-size: 0.8rem; color: var(--primary); font-weight: 800;">$${item.price.toLocaleString('es-AR')} x ${item.qty}</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.25rem;">
+              <button type="button" class="btn-qty-minus btn btn-outline" data-id="${item.id}" style="width: 28px; height: 28px; padding: 0; font-size: 0.8rem;">-</button>
+              <span style="font-size: 0.85rem; font-weight: 700; min-width: 20px; text-align: center;">${item.qty}</span>
+              <button type="button" class="btn-qty-plus btn btn-outline" data-id="${item.id}" style="width: 28px; height: 28px; padding: 0; font-size: 0.8rem;">+</button>
+            </div>
+          </div>
+        `).join('');
+
+        const subtotal = Store.getCartTotal();
+        const discount = Math.round(subtotal * 0.10);
+        const finalTotal = subtotal - discount;
+
+        cartSubtotal.textContent = `$${subtotal.toLocaleString('es-AR')}`;
+        cartDiscount.textContent = `-$${discount.toLocaleString('es-AR')}`;
+        cartTotal.textContent = `$${finalTotal.toLocaleString('es-AR')}`;
+
+        // Eventos para cambiar cantidades en carrito
+        document.querySelectorAll('.btn-qty-minus').forEach(b => {
+          b.addEventListener('click', () => {
+            const id = b.getAttribute('data-id');
+            const item = cart.find(i => i.id === id);
+            if (item && item.qty > 1) {
+              item.qty -= 1;
+              Store.saveCart(cart);
+            } else {
+              Store.removeFromCart(id);
+            }
+            updateCartUI();
+          });
+        });
+
+        document.querySelectorAll('.btn-qty-plus').forEach(b => {
+          b.addEventListener('click', () => {
+            const id = b.getAttribute('data-id');
+            Store.addToCart(id, 1);
+            updateCartUI();
+          });
+        });
+      }
+
+      function openCart() {
+        cartOverlay.classList.add('open');
+        cartDrawer.classList.add('open');
+      }
+
+      function closeCart() {
+        cartOverlay.classList.remove('open');
+        cartDrawer.classList.remove('open');
+      }
+
+      btnOpenCart.addEventListener('click', openCart);
+      btnCloseCart.addEventListener('click', closeCart);
+      cartOverlay.addEventListener('click', closeCart);
+
+      // Finalizar pedido por WhatsApp
+      btnCheckoutWa.addEventListener('click', () => {
+        const cart = Store.getCart();
+        if (cart.length === 0) return;
+
+        let msg = "¡Hola Bazar Lo de Ester! Quiero encargar los siguientes productos de la web:\n\n";
+        cart.forEach((item, idx) => {
+          msg += `${idx + 1}. ${item.name} (x${item.qty}) - $${(item.price * item.qty).toLocaleString('es-AR')}\n`;
+        });
+        const subtotal = Store.getCartTotal();
+        const discount = Math.round(subtotal * 0.10);
+        const total = subtotal - discount;
+
+        msg += `\nSubtotal: $${subtotal.toLocaleString('es-AR')}`;
+        msg += `\nDescuento 10% Efectivo: -$${discount.toLocaleString('es-AR')}`;
+        msg += `\nTotal a abonar: $${total.toLocaleString('es-AR')}`;
+        msg += "\n\n¿Tienen disponibilidad para pasar a retirar por Gato y Mancha 1129? ¡Muchas gracias!";
+
+        window.open(`https://wa.me/5493794662177?text=${encodeURIComponent(msg)}`, '_blank');
+      });
+
+      // Filtros
+      filterChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          filterChips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          currentCategory = chip.getAttribute('data-category');
+          renderProducts();
+        });
+      });
+
+      // Búsqueda
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value.toLowerCase().trim();
+        renderProducts();
+      });
+
+      // Render inicial
+      renderProducts();
+      updateCartUI();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "bazar-lo-de-ester",
+  "version": "1.0.0",
+  "description": "Sitio Web y Panel de Administración de Bazar Lo de Ester - Polirrubro & Multiservicios (Corrientes)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "bazar",
+    "polirrubro",
+    "corrientes",
+    "fotocopias",
+    "reparaciones",
+    "anses"
+  ],
+  "author": "Bazar Lo de Ester",
+  "license": "ISC"
+}

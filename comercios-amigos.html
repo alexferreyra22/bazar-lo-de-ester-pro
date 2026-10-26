@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comercios Amigos & Red de Marketing Barrial - Bazar Lo de Ester</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤝</text></svg>">
+</head>
+<body>
+
+  <!-- Barra Superior de Información -->
+  <aside class="announcement-bar">
+    <div class="announcement-container">
+      <div class="announcement-info">
+        <span><span class="material-symbols-outlined text-[16px]">schedule</span> Lunes a Sábado de 8:30 a 20:30 hs</span>
+        <span><span class="material-symbols-outlined text-[16px]">location_on</span> Gato y Mancha 1129, Corrientes</span>
+      </div>
+      <div>
+        <a href="#publicitar" class="announcement-badge">
+          📢 Publicitá tu negocio por solo $5.000/mes
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header y Navegación Principal -->
+  <header class="main-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined" style="font-size: 28px;">storefront</span>
+        </div>
+        <div>
+          <div class="brand-title">Bazar Lo de Ester</div>
+          <div class="brand-subtitle">Polirrubro & Multiservicios</div>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="catalogo.html" class="nav-link">Productos Bazar</a>
+        <a href="impresiones.html" class="nav-link">Impresiones</a>
+        <a href="reparaciones.html" class="nav-link">Taller & Reparaciones</a>
+        <a href="tramites.html" class="nav-link">Trámites ANSES</a>
+        <a href="comercios-amigos.html" class="nav-link active">Comercios Amigos</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="admin-login.html" class="btn btn-outline" style="padding: 0.5rem 0.85rem;" title="Panel de Administrador">
+          <span class="material-symbols-outlined" style="font-size: 20px;">lock</span>
+          <span class="admin-btn-text">Admin</span>
+        </a>
+        <a href="#publicitar" class="btn btn-primary" style="padding: 0.5rem 0.85rem;">
+          <span class="material-symbols-outlined" style="font-size: 18px;">campaign</span>
+          <span>Publicitar</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero de Comercios Amigos -->
+  <section class="hero-section" style="padding: 2.5rem 1.25rem;">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <span class="pill pill-green" style="margin-bottom: 0.75rem;">RED DE COLABORACIÓN Y BENEFICIOS VECINALES</span>
+      <h1 class="hero-title" style="font-size: 2.3rem; margin-bottom: 0.75rem;">
+        Comercios Amigos de Bazar Lo de Ester
+      </h1>
+      <p class="hero-desc" style="max-width: 800px; margin-bottom: 1rem;">
+        Impulsamos la economía local de Corrientes recomendando emprendimientos, oficios y negocios barriales de confianza. 
+        ¡Descubrí descuentos exclusivos para vecinos y contactate directamente con ellos!
+      </p>
+      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        <span class="pill pill-amber"><span class="material-symbols-outlined" style="font-size: 15px;">verified</span> Comercios Verificados</span>
+        <span class="pill pill-blue"><span class="material-symbols-outlined" style="font-size: 15px;">local_offer</span> Beneficios Exclusivos</span>
+        <span class="pill pill-green"><span class="material-symbols-outlined" style="font-size: 15px;">store</span> Apoyo al Comercio Local</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Directorio de Comercios -->
+  <main class="container">
+    <div class="cards-grid" id="businesses-grid">
+      <!-- Carga dinámica desde store.js -->
+    </div>
+
+    <!-- SECCIÓN DE PUBLICIDAD BARRIAL ($5.000 MENSUAL) -->
+    <div id="publicitar" style="background: linear-gradient(135deg, #00236f 0%, #1e3a8a 100%); color: #fff; border-radius: var(--radius-xl); padding: 3rem 2rem; margin-top: 4rem; box-shadow: var(--shadow-xl);">
+      <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+        <span class="pill" style="background: rgba(254, 166, 25, 0.25); color: #fea619; border: 1px solid #fea619; margin-bottom: 1rem;">
+          📢 ESPACIO PUBLICITARIO EXCLUSIVO
+        </span>
+        <h2 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 1rem; color: #fff;">
+          ¿Tenés un negocio o emprendimiento en el barrio?
+        </h2>
+        <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem; line-height: 1.6;">
+          Sumate a la vidriera digital de <strong>Bazar Lo de Ester</strong>. Cientos de vecinos entran a nuestra web todos los días para imprimir, ver productos y seguir sus reparaciones. 
+          Mostrá tu logo, fotos, descripción, tus redes y tu WhatsApp oficial por solo:
+        </p>
+
+        <div style="display: inline-block; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(8px); padding: 1.25rem 2.5rem; border-radius: var(--radius-lg); border: 1px solid rgba(255, 255, 255, 0.2); margin-bottom: 2rem;">
+          <div style="font-size: 0.9rem; font-weight: 700; color: #fea619; text-transform: uppercase; letter-spacing: 0.05em;">Tarifa Fija Mensual</div>
+          <div id="publicidad-rate-tag" style="font-size: 3rem; font-weight: 800; color: #fff;">$5.000 <span style="font-size: 1rem; font-weight: 500; opacity: 0.8;">/ mes</span></div>
+          <div style="font-size: 0.8rem; opacity: 0.8;">Sin contratos forzosos • Renovación mensual opcional</div>
+        </div>
+
+        <div>
+          <a href="https://wa.me/5493794662177?text=¡Hola%20Bazar%20Lo%20de%20Ester!%20Quiero%20sumar%20mi%20comercio%20a%20la%20sección%20de%20Comercios%20Amigos." target="_blank" class="btn btn-secondary" style="font-size: 1.1rem; padding: 0.85rem 2rem; box-shadow: 0 10px 20px rgba(254, 166, 25, 0.3);">
+            <span class="material-symbols-outlined">campaign</span>
+            Quiero Publicitar mi Negocio por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Botón Flotante de WhatsApp -->
+  <a href="https://wa.me/5493794662177?text=¡Hola%20Bazar%20Lo%20de%20Ester!%20Quería%20consultar%20por%20la%20publicidad." target="_blank" class="floating-whatsapp" title="Escribir por WhatsApp">
+    <span class="material-symbols-outlined">chat</span>
+  </a>
+
+  <!-- Footer Principal -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Bazar Lo de Ester</h3>
+        <p style="margin-bottom: 1rem;">
+          Apoyando al comercio barrial y a los emprendedores de Corrientes.
+        </p>
+        <div style="font-size: 0.875rem; color: #94a3b8;">
+          <div><strong>Local:</strong> Gato y Mancha 1129, Corrientes</div>
+          <div><strong>WhatsApp:</strong> 379 4662177</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="catalogo.html">Catálogo Bazar</a></li>
+          <li><a href="impresiones.html">Centro de Impresiones</a></li>
+          <li><a href="reparaciones.html">Taller Técnico</a></li>
+          <li><a href="tramites.html">Trámites ANSES</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Administrador</h4>
+        <ul class="footer-links">
+          <li><a href="admin-login.html">Ingreso Administrador</a></li>
+          <li><a href="admin.html">Agregar Comercio Amigo</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Horarios</h4>
+        <p style="font-size: 0.875rem; color: #94a3b8; line-height: 1.6;">
+          Lunes a Sábado: 8:30 a 20:30 hs.<br>
+          Gato y Mancha 1129, Corrientes.<br>
+          ¡Gracias por apoyar el comercio local!
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Bazar Lo de Ester. Todos los derechos reservados.</div>
+      <div>Comercios Amigos & Publicidad</div>
+    </div>
+  </footer>
+
+  <script src="store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Precio de publicidad dinámico
+      const rates = Store.getRates();
+      const pubPrice = rates.publicidad_mensual || 5000;
+      document.getElementById('publicidad-rate-tag').innerHTML = `$${pubPrice.toLocaleString('es-AR')} <span style="font-size: 1rem; font-weight: 500; opacity: 0.8;">/ mes</span>`;
+
+      // Renderizar comercios amigos
+      const businesses = Store.getBusinesses().filter(b => b.active);
+      const grid = document.getElementById('businesses-grid');
+
+      grid.innerHTML = businesses.map(b => `
+        <div class="product-card" style="padding: 1.5rem;">
+          <div>
+            <div class="product-image-container" style="height: 180px;">
+              <img src="${b.image}" alt="${b.name}" class="product-img">
+              <span class="badge-stock" style="background: #10b981; color: #fff;">Amigo Recomendado</span>
+            </div>
+            <div class="product-category">${b.category}</div>
+            <h3 class="product-name" style="font-size: 1.25rem;">${b.name}</h3>
+            <p class="product-desc">${b.description}</p>
+            
+            <div style="background: #fef3c7; border: 1px dashed #d97706; padding: 0.75rem; border-radius: var(--radius-md); margin-bottom: 1rem; font-size: 0.85rem; font-weight: 700; color: #92400e;">
+              🎁 <strong>Beneficio Vecinal:</strong><br>${b.benefit}
+            </div>
+          </div>
+
+          <div class="product-footer" style="flex-direction: column; align-items: stretch; gap: 0.75rem;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">
+              <span>Instagram:</span>
+              <span style="color: var(--primary); font-weight: 700;">${b.instagram || '@comercio'}</span>
+            </div>
+            <a href="https://wa.me/${b.whatsapp.startsWith('54') ? b.whatsapp : '549' + b.whatsapp}?text=${encodeURIComponent('¡Hola ' + b.name + '! Los contacto luego de ver su publicación en Bazar Lo de Ester.')}" target="_blank" class="btn btn-whatsapp" style="width: 100%; justify-content: center;">
+              <span class="material-symbols-outlined">chat</span>
+              Contactar por WhatsApp
+            </a>
+          </div>
+        </div>
+      `).join('');
+    });
+  </script>
+</body>
+</html>

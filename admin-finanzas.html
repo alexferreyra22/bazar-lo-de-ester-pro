@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Contable & Balance Financiero - Bazar Lo de Ester</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+  <style>
+    .admin-nav-bar {
+      background: var(--primary);
+      padding: 0.5rem 1.25rem;
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+    }
+    .admin-nav-link {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.4rem 0.85rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+    .admin-nav-link:hover, .admin-nav-link.active {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .admin-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .admin-card-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      font-size: 0.825rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .form-control {
+      padding: 0.65rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      font-family: inherit;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(0, 35, 111, 0.1);
+    }
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .metric-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.35rem;
+    }
+    .metric-value {
+      font-size: 1.85rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #10b981;
+      color: #fff;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      box-shadow: var(--shadow-lg);
+      display: none;
+      z-index: 2000;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header del Administrador -->
+  <header class="main-header" style="background: #001646; color: #fff;">
+    <div class="header-container" style="justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <div class="brand-icon" style="background: #1e3a8a;">
+          <span class="material-symbols-outlined" style="font-size: 26px;">account_balance_wallet</span>
+        </div>
+        <div>
+          <div style="font-size: 1.15rem; font-weight: 800; color: #fff;">Bazar Lo de Ester</div>
+          <div style="font-size: 0.75rem; color: #fea619; font-weight: 600;">Panel Financiero, Balance de Caja & Rentabilidad</div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <a href="index.html" target="_blank" class="btn btn-outline" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2); font-size: 0.8rem; padding: 0.4rem 0.75rem;">
+          <span class="material-symbols-outlined" style="font-size: 16px;">open_in_new</span>
+          Ver Sitio
+        </a>
+        <button type="button" id="btn-logout" class="btn btn-danger" style="font-size: 0.8rem; padding: 0.4rem 0.75rem;">
+          <span class="material-symbols-outlined" style="font-size: 16px;">logout</span>
+          Cerrar Sesión
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Subnavegación de Módulos Administrativos -->
+  <nav class="admin-nav-bar">
+    <a href="admin.html" class="admin-nav-link">
+      <span class="material-symbols-outlined" style="font-size: 18px;">tune</span>
+      Control General & Stock
+    </a>
+    <a href="admin-taller.html" class="admin-nav-link">
+      <span class="material-symbols-outlined" style="font-size: 18px;">build</span>
+      Taller & Avisos WhatsApp
+    </a>
+    <a href="admin-finanzas.html" class="admin-nav-link active">
+      <span class="material-symbols-outlined" style="font-size: 18px;">payments</span>
+      Caja & Ganancias
+    </a>
+  </nav>
+
+  <main class="container" style="padding-top: 2rem;">
+    
+    <!-- TARJETAS DE MÉTRICAS FINANCIERAS EN VIVO -->
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-bottom: 2rem;">
+      
+      <div class="metric-card" style="border-left: 4px solid #10b981;">
+        <div class="metric-title">Total Ingresos / Ventas</div>
+        <div id="stat-ingresos" class="metric-value" style="color: #166534;">$0</div>
+        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.35rem;">Ventas bazar, taller, copias y publicidad</div>
+      </div>
+
+      <div class="metric-card" style="border-left: 4px solid #ef4444;">
+        <div class="metric-title">Total Egresos / Gastos</div>
+        <div id="stat-gastos" class="metric-value" style="color: #b91c1c;">$0</div>
+        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.35rem;">Servicios (Luz DPEC), resmas, repuestos</div>
+      </div>
+
+      <div class="metric-card" style="border-left: 4px solid var(--primary); background: #f0fdf4;">
+        <div class="metric-title" style="color: #166534;">Ganancia Neta del Negocio</div>
+        <div id="stat-ganancia" class="metric-value" style="color: #15803d;">$0</div>
+        <div style="font-size: 0.75rem; color: #166534; font-weight: 700; margin-top: 0.35rem;">Ingresos menos Gastos</div>
+      </div>
+
+      <div class="metric-card" style="border-left: 4px solid #f59e0b;">
+        <div class="metric-title">Movimientos Registrados</div>
+        <div id="stat-count" class="metric-value" style="color: var(--primary);">0</div>
+        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.35rem;">Transacciones de caja</div>
+      </div>
+
+    </div>
+
+    <!-- REGISTRO DE MOVIMIENTOS & TABLA HISTÓRICA -->
+    <div style="display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 2rem; align-items: start;">
+      
+      <!-- Formulario: Registrar Movimiento de Caja -->
+      <div class="admin-card">
+        <h2 class="admin-card-title">
+          <span class="material-symbols-outlined">add_card</span>
+          Cargar Ingreso o Gasto de Caja
+        </h2>
+
+        <form id="form-add-tx">
+          
+          <div class="form-group">
+            <label>Tipo de Operación *</label>
+            <div style="display: flex; gap: 1rem;">
+              <label style="flex: 1; border: 2px solid #10b981; padding: 0.65rem; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; gap: 0.5rem; background: #f0fdf4;">
+                <input type="radio" name="tx_type" value="ingreso" checked>
+                <strong style="color: #166534;">(+) Ingreso / Venta</strong>
+              </label>
+
+              <label style="flex: 1; border: 2px solid #ef4444; padding: 0.65rem; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; gap: 0.5rem; background: #fef2f2;">
+                <input type="radio" name="tx_type" value="gasto">
+                <strong style="color: #b91c1c;">(-) Gasto / Egreso</strong>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Monto de la Operación ($) *</label>
+            <input type="number" id="tx-amount" class="form-control" placeholder="Ej: 32000" min="1" required style="font-size: 1.15rem; font-weight: 800;">
+          </div>
+
+          <div class="form-group">
+            <label>Categoría *</label>
+            <select id="tx-category" class="form-control" required>
+              <!-- Dinámico según si es ingreso o gasto -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Concepto / Detalle *</label>
+            <input type="text" id="tx-concept" class="form-control" placeholder="Ej: Factura Servicio Luz DPEC Local" required>
+          </div>
+
+          <div class="form-group">
+            <label>Fecha de la Operación</label>
+            <input type="date" id="tx-date" class="form-control">
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+            <span class="material-symbols-outlined">save</span>
+            Asentar en Caja Diaria
+          </button>
+        </form>
+      </div>
+
+      <!-- Tabla de Transacciones y Arqueo -->
+      <div class="admin-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h2 class="admin-card-title" style="margin-bottom: 0; border: none; padding: 0;">
+            <span class="material-symbols-outlined">receipt_long</span>
+            Libro Diario de Movimientos
+          </h2>
+          <div style="display: flex; gap: 0.5rem;">
+            <select id="filter-tx-type" class="form-control" style="padding: 0.35rem 0.65rem; font-size: 0.8rem;">
+              <option value="todos">Todos los movimientos</option>
+              <option value="ingreso">Solo Ingresos (+)</option>
+              <option value="gasto">Solo Gastos (-)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Concepto</th>
+                <th>Categoría</th>
+                <th>Monto ($)</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody id="tx-tbody">
+              <!-- Llenado dinámico -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Notificación Toast -->
+  <div class="toast" id="finanzas-toast">
+    <span class="material-symbols-outlined">check_circle</span>
+    <span id="toast-text">Movimiento registrado</span>
+  </div>
+
+  <script src="store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Verificar autenticación
+      if (!Store.isAuthenticated()) {
+        window.location.href = 'admin-login.html';
+        return;
+      }
+
+      document.getElementById('btn-logout').addEventListener('click', () => {
+        Store.logout();
+        window.location.href = 'admin-login.html';
+      });
+
+      const toast = document.getElementById('finanzas-toast');
+      const toastText = document.getElementById('toast-text');
+      function showToast(msg) {
+        toastText.textContent = msg;
+        toast.style.display = 'flex';
+        setTimeout(() => toast.style.display = 'none', 3000);
+      }
+
+      // Fecha de hoy por defecto
+      document.getElementById('tx-date').value = new Date().toISOString().split('T')[0];
+
+      // Categorías según tipo de operación
+      const catSelect = document.getElementById('tx-category');
+      const typeRadios = document.querySelectorAll('input[name="tx_type"]');
+
+      const CATEGORIES = {
+        ingreso: [
+          'Venta Bazar',
+          'Taller de Reparaciones',
+          'Fotocopias & Impresiones',
+          'Lavado de Acolchados',
+          'Publicidad Comercios Amigos',
+          'Trámites ANSES',
+          'Otros Ingresos'
+        ],
+        gasto: [
+          'Servicios (Luz DPEC / Agua / Internet)',
+          'Insumos (Resmas Papel A4 / Tintas)',
+          'Mercadería Mayorista Bazar',
+          'Repuestos Técnicos (Displays / Pines)',
+          'Mantenimiento de Maquinarias',
+          'Alquiler / Impuestos',
+          'Otros Gastos Operativos'
+        ]
+      };
+
+      function updateCategories() {
+        const selectedType = document.querySelector('input[name="tx_type"]:checked').value;
+        const list = CATEGORIES[selectedType];
+        catSelect.innerHTML = list.map(c => `<option value="${c}">${c}</option>`).join('');
+      }
+
+      typeRadios.forEach(r => r.addEventListener('change', updateCategories));
+      updateCategories();
+
+      // 2. Renderizar Resumen y Tabla
+      function renderFinances() {
+        const summary = Store.getFinanceSummary();
+        document.getElementById('stat-ingresos').textContent = `$${summary.totalIngresos.toLocaleString('es-AR')}`;
+        document.getElementById('stat-gastos').textContent = `$${summary.totalGastos.toLocaleString('es-AR')}`;
+        
+        const gananciaEl = document.getElementById('stat-ganancia');
+        gananciaEl.textContent = `$${summary.gananciaNeta.toLocaleString('es-AR')}`;
+        if (summary.gananciaNeta >= 0) {
+          gananciaEl.style.color = '#15803d';
+        } else {
+          gananciaEl.style.color = '#b91c1c';
+        }
+
+        document.getElementById('stat-count').textContent = summary.transaccionesCount;
+
+        // Tabla con filtro
+        const filterType = document.getElementById('filter-tx-type').value;
+        const finances = Store.getFinances();
+        const filtered = finances.transactions.filter(t => {
+          if (filterType === 'todos') return true;
+          return t.type === filterType;
+        });
+
+        const tbody = document.getElementById('tx-tbody');
+        tbody.innerHTML = filtered.map(t => {
+          const isIncome = (t.type === 'ingreso');
+          return `
+            <tr>
+              <td style="font-size: 0.8rem; color: var(--text-muted);">${t.date}</td>
+              <td>
+                <strong style="color: var(--text-main); font-size: 0.9rem;">${t.concept}</strong>
+              </td>
+              <td>
+                <span class="pill ${isIncome ? 'pill-green' : 'pill-amber'}" style="font-size: 0.7rem;">${t.category || t.type}</span>
+              </td>
+              <td>
+                <strong style="font-size: 1rem; color: ${isIncome ? '#166534' : '#b91c1c'};">
+                  ${isIncome ? '+' : '-'}$${Number(t.amount).toLocaleString('es-AR')}
+                </strong>
+              </td>
+              <td>
+                <button type="button" class="btn btn-danger btn-del-tx" data-id="${t.id}" style="padding: 0.25rem 0.45rem; font-size: 0.75rem;">
+                  <span class="material-symbols-outlined" style="font-size: 16px;">delete</span>
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        // Eventos eliminar
+        document.querySelectorAll('.btn-del-tx').forEach(b => {
+          b.addEventListener('click', () => {
+            if (confirm('¿Eliminar este registro de caja?')) {
+              Store.deleteTransaction(b.getAttribute('data-id'));
+              renderFinances();
+              showToast('Registro eliminado');
+            }
+          });
+        });
+      }
+
+      document.getElementById('filter-tx-type').addEventListener('change', renderFinances);
+
+      // 3. Alta de Movimiento
+      document.getElementById('form-add-tx').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const selectedType = document.querySelector('input[name="tx_type"]:checked').value;
+        const newTx = {
+          type: selectedType,
+          amount: Number(document.getElementById('tx-amount').value),
+          category: document.getElementById('tx-category').value,
+          concept: document.getElementById('tx-concept').value.trim(),
+          date: document.getElementById('tx-date').value || new Date().toISOString().split('T')[0]
+        };
+
+        Store.addTransaction(newTx);
+        renderFinances();
+        document.getElementById('tx-amount').value = '';
+        document.getElementById('tx-concept').value = '';
+        showToast(`¡${selectedType === 'ingreso' ? 'Ingreso' : 'Gasto'} registrado en caja diaria!`);
+      });
+
+      renderFinances();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Taller Técnico & Notificaciones WhatsApp - Bazar Lo de Ester</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>">
+  <style>
+    .admin-nav-bar {
+      background: var(--primary);
+      padding: 0.5rem 1.25rem;
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+    }
+    .admin-nav-link {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.4rem 0.85rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+    .admin-nav-link:hover, .admin-nav-link.active {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .admin-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .admin-card-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      font-size: 0.825rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .form-control {
+      padding: 0.65rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      font-family: inherit;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(0, 35, 111, 0.1);
+    }
+    .badge-status {
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: inline-block;
+    }
+    .badge-recibido { background: #e0e7ff; color: #1e3a8a; }
+    .badge-diagnostico { background: #fef3c7; color: #92400e; }
+    .badge-reparacion { background: #fee2e2; color: #b91c1c; }
+    .badge-pruebas { background: #ede9fe; color: #6d28d9; }
+    .badge-listo { background: #dcfce7; color: #166534; }
+    .badge-entregado { background: #f1f5f9; color: #475569; }
+    
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #10b981;
+      color: #fff;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      box-shadow: var(--shadow-lg);
+      display: none;
+      z-index: 2000;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header del Administrador -->
+  <header class="main-header" style="background: #001646; color: #fff;">
+    <div class="header-container" style="justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <div class="brand-icon" style="background: #1e3a8a;">
+          <span class="material-symbols-outlined" style="font-size: 26px;">build</span>
+        </div>
+        <div>
+          <div style="font-size: 1.15rem; font-weight: 800; color: #fff;">Bazar Lo de Ester</div>
+          <div style="font-size: 0.75rem; color: #fea619; font-weight: 600;">Control de Taller Técnico & Alertas WhatsApp</div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <a href="reparaciones.html" target="_blank" class="btn btn-outline" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2); font-size: 0.8rem; padding: 0.4rem 0.75rem;">
+          <span class="material-symbols-outlined" style="font-size: 16px;">visibility</span>
+          Ver Rastreador Clientes
+        </a>
+        <button type="button" id="btn-logout" class="btn btn-danger" style="font-size: 0.8rem; padding: 0.4rem 0.75rem;">
+          <span class="material-symbols-outlined" style="font-size: 16px;">logout</span>
+          Cerrar Sesión
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Subnavegación de Módulos Administrativos -->
+  <nav class="admin-nav-bar">
+    <a href="admin.html" class="admin-nav-link">
+      <span class="material-symbols-outlined" style="font-size: 18px;">tune</span>
+      Control General & Stock
+    </a>
+    <a href="admin-taller.html" class="admin-nav-link active">
+      <span class="material-symbols-outlined" style="font-size: 18px;">build</span>
+      Taller & Avisos WhatsApp
+    </a>
+    <a href="admin-finanzas.html" class="admin-nav-link">
+      <span class="material-symbols-outlined" style="font-size: 18px;">payments</span>
+      Caja & Ganancias
+    </a>
+  </nav>
+
+  <main class="container" style="padding-top: 2rem;">
+    
+    <!-- Formulario: Nueva Orden de Reparación -->
+    <div class="admin-card">
+      <h2 class="admin-card-title">
+        <span class="material-symbols-outlined">post_add</span>
+        Ingresar Nuevo Celular o Electrodoméstico a Reparar
+      </h2>
+      <form id="form-add-repair" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+        
+        <div class="form-group">
+          <label>Código de Orden *</label>
+          <input type="text" id="rep-code" class="form-control" style="font-weight: 800; text-transform: uppercase;" required>
+          <small style="font-size: 0.75rem; color: var(--text-muted);">Generado automáticamente (ej: REP-1052)</small>
+        </div>
+
+        <div class="form-group">
+          <label>Nombre del Cliente *</label>
+          <input type="text" id="rep-client" class="form-control" placeholder="Ej: Patricia Morales" required>
+        </div>
+
+        <div class="form-group">
+          <label>Teléfono / WhatsApp Cliente *</label>
+          <input type="text" id="rep-phone" class="form-control" placeholder="Ej: 3794123456" required>
+          <small style="font-size: 0.75rem; color: var(--text-muted);">Para enviarle el aviso cuando esté listo</small>
+        </div>
+
+        <div class="form-group">
+          <label>Equipo / Dispositivo *</label>
+          <input type="text" id="rep-device" class="form-control" placeholder="Ej: Samsung Galaxy A03 / Pava Peabody" required>
+        </div>
+
+        <div class="form-group">
+          <label>Presupuesto / Saldo a Abonar ($) *</label>
+          <input type="number" id="rep-cost" class="form-control" placeholder="Ej: 18000" min="0" required>
+        </div>
+
+        <div class="form-group">
+          <label>Estado Inicial *</label>
+          <select id="rep-status" class="form-control" required>
+            <option value="recibido">1. Recibido en local</option>
+            <option value="diagnostico">2. En Diagnóstico</option>
+            <option value="reparacion">3. En Reparación</option>
+            <option value="pruebas">4. En Pruebas</option>
+            <option value="listo">5. ¡Listo para Retiro!</option>
+          </select>
+        </div>
+
+        <div class="form-group" style="grid-column: 1 / -1;">
+          <label>Falla Declarada / Detalle Técnico</label>
+          <input type="text" id="rep-issue" class="form-control" placeholder="Ej: No enciende / Pantalla rota / Botón trabado">
+        </div>
+
+        <div style="grid-column: 1 / -1; display: flex; justify-content: flex-end;">
+          <button type="submit" class="btn btn-primary">
+            <span class="material-symbols-outlined">save</span>
+            Registrar Orden de Servicio
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Tabla de Equipos y Reparaciones en el Taller -->
+    <div class="admin-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h2 class="admin-card-title" style="margin-bottom: 0; border: none; padding: 0;">
+          <span class="material-symbols-outlined">format_list_bulleted</span>
+          Órdenes de Trabajo en Taller (<span id="repairs-count">0</span>)
+        </h2>
+        <div style="font-size: 0.85rem; color: var(--text-sub);">
+          💡 Los clientes pueden consultar su estado con el código en <strong>reparaciones.html</strong>
+        </div>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Cliente & Contacto</th>
+              <th>Equipo & Falla</th>
+              <th>Presupuesto</th>
+              <th>Estado en Vivo</th>
+              <th>Avisar por WhatsApp</th>
+              <th>Borrar</th>
+            </tr>
+          </thead>
+          <tbody id="repairs-tbody">
+            <!-- Llenado dinámico -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Notificación Toast -->
+  <div class="toast" id="taller-toast">
+    <span class="material-symbols-outlined">check_circle</span>
+    <span id="toast-text">Orden actualizada con éxito</span>
+  </div>
+
+  <script src="store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Verificar autenticación
+      if (!Store.isAuthenticated()) {
+        window.location.href = 'admin-login.html';
+        return;
+      }
+
+      document.getElementById('btn-logout').addEventListener('click', () => {
+        Store.logout();
+        window.location.href = 'admin-login.html';
+      });
+
+      const toast = document.getElementById('taller-toast');
+      const toastText = document.getElementById('toast-text');
+      function showToast(msg) {
+        toastText.textContent = msg;
+        toast.style.display = 'flex';
+        setTimeout(() => toast.style.display = 'none', 3000);
+      }
+
+      function generateNextCode() {
+        const repairs = Store.getRepairs();
+        const rand = Math.floor(1050 + Math.random() * 8900);
+        return `REP-${rand}`;
+      }
+
+      // Auto-completar próximo código sugerido
+      document.getElementById('rep-code').value = generateNextCode();
+
+      // 2. Renderizar tabla de reparaciones
+      function renderRepairs() {
+        const repairs = Store.getRepairs();
+        document.getElementById('repairs-count').textContent = repairs.length;
+        const tbody = document.getElementById('repairs-tbody');
+
+        tbody.innerHTML = repairs.map(r => {
+          const isReady = (r.status === 'listo');
+          const phoneClean = r.phone.replace(/[^0-9]/g, '');
+          const waPhone = phoneClean.startsWith('54') ? phoneClean : `549${phoneClean}`;
+          
+          // Mensaje de notificación WhatsApp cuando el equipo está listo
+          const readyMsg = `¡Hola ${r.client}! Te avisamos desde Bazar Lo de Ester que tu equipo (${r.device}) ya está listo para retirar en nuestro local de Gato y Mancha 1129, Corrientes. El saldo a abonar es de $${Number(r.cost).toLocaleString('es-AR')}. ¡Muchas gracias por confiar en nosotros!`;
+
+          return `
+            <tr>
+              <td>
+                <strong style="color: var(--primary); font-size: 1rem; letter-spacing: 0.05em;">#${r.code.replace('#','')}</strong>
+                <div style="font-size: 0.725rem; color: var(--text-muted);">${r.date || 'Reciente'}</div>
+              </td>
+              <td>
+                <strong style="color: var(--text-main); font-size: 0.9rem;">${r.client}</strong><br>
+                <span style="font-size: 0.8rem; color: var(--text-sub);">📞 ${r.phone}</span>
+              </td>
+              <td>
+                <strong style="font-size: 0.9rem;">${r.device}</strong>
+                <div style="font-size: 0.775rem; color: var(--text-muted);">${r.issue || 'Sin notas adicionales'}</div>
+              </td>
+              <td>
+                <strong style="color: #166534; font-size: 1.05rem;">$${Number(r.cost).toLocaleString('es-AR')}</strong>
+              </td>
+              <td>
+                <select class="form-control select-repair-status" data-code="${r.code}" style="padding: 0.4rem 0.6rem; font-size: 0.85rem; font-weight: 700; border-color: ${isReady ? '#10b981' : 'var(--border)'}; background: ${isReady ? '#f0fdf4' : '#fff'};">
+                  <option value="recibido" ${r.status === 'recibido' ? 'selected' : ''}>1. Recibido</option>
+                  <option value="diagnostico" ${r.status === 'diagnostico' ? 'selected' : ''}>2. Diagnóstico</option>
+                  <option value="reparacion" ${r.status === 'reparacion' ? 'selected' : ''}>3. En Reparación</option>
+                  <option value="pruebas" ${r.status === 'pruebas' ? 'selected' : ''}>4. En Pruebas</option>
+                  <option value="listo" ${r.status === 'listo' ? 'selected' : ''}>5. ¡Listo para Retiro!</option>
+                  <option value="entregado" ${r.status === 'entregado' ? 'selected' : ''}>6. Entregado</option>
+                </select>
+              </td>
+              <td>
+                <a href="https://wa.me/${waPhone}?text=${encodeURIComponent(readyMsg)}" target="_blank" class="btn ${isReady ? 'btn-whatsapp' : 'btn-outline'}" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;" title="Enviar WhatsApp al cliente">
+                  <span class="material-symbols-outlined" style="font-size: 18px;">chat</span>
+                  ${isReady ? '📲 Enviar: Listo' : 'Notificar'}
+                </a>
+              </td>
+              <td>
+                <button type="button" class="btn btn-danger btn-delete-repair" data-code="${r.code}" style="padding: 0.35rem 0.5rem; font-size: 0.75rem;">
+                  <span class="material-symbols-outlined" style="font-size: 16px;">delete</span>
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        // Eventos para cambiar estado en tiempo real
+        document.querySelectorAll('.select-repair-status').forEach(select => {
+          select.addEventListener('change', (e) => {
+            const code = e.target.getAttribute('data-code');
+            const newStatus = e.target.value;
+            Store.updateRepair(code, { status: newStatus });
+            
+            if (newStatus === 'listo') {
+              showToast('¡Estado cambiado a LISTO! Ya podés avisar al cliente por WhatsApp.');
+            } else {
+              showToast(`Estado de #${code} actualizado a ${newStatus.toUpperCase()}`);
+            }
+            renderRepairs();
+          });
+        });
+
+        // Eventos para eliminar orden
+        document.querySelectorAll('.btn-delete-repair').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const code = btn.getAttribute('data-code');
+            if (confirm(`¿Eliminar la orden #${code}?`)) {
+              Store.deleteRepair(code);
+              renderRepairs();
+              showToast('Orden eliminada');
+            }
+          });
+        });
+      }
+
+      // 3. Alta de nueva orden de reparación
+      document.getElementById('form-add-repair').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const codeVal = document.getElementById('rep-code').value.trim();
+        const newRepair = {
+          code: codeVal,
+          client: document.getElementById('rep-client').value.trim(),
+          phone: document.getElementById('rep-phone').value.trim(),
+          device: document.getElementById('rep-device').value.trim(),
+          cost: Number(document.getElementById('rep-cost').value),
+          status: document.getElementById('rep-status').value,
+          issue: document.getElementById('rep-issue').value.trim()
+        };
+
+        Store.addRepair(newRepair);
+        renderRepairs();
+        document.getElementById('form-add-repair').reset();
+        document.getElementById('rep-code').value = generateNextCode();
+        showToast(`¡Orden #${codeVal} registrada exitosamente!`);
+      });
+
+      renderRepairs();
+    });
+  </script>
+</body>
+</html>

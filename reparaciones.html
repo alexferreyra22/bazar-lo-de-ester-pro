@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taller de Reparaciones & Seguimiento de Equipos - Bazar Lo de Ester</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔧</text></svg>">
+</head>
+<body>
+
+  <!-- Barra Superior de Información -->
+  <aside class="announcement-bar">
+    <div class="announcement-container">
+      <div class="announcement-info">
+        <span><span class="material-symbols-outlined text-[16px]">schedule</span> Lunes a Sábado de 8:30 a 20:30 hs</span>
+        <span><span class="material-symbols-outlined text-[16px]">location_on</span> Taller Técnico: Gato y Mancha 1129, Corrientes</span>
+      </div>
+      <div>
+        <a href="https://wa.me/5493794662177" target="_blank" class="announcement-badge">
+          <span class="material-symbols-outlined text-[14px]">build</span>
+          Consultas Técnicas: 379 4662177
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header y Navegación Principal -->
+  <header class="main-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined" style="font-size: 28px;">storefront</span>
+        </div>
+        <div>
+          <div class="brand-title">Bazar Lo de Ester</div>
+          <div class="brand-subtitle">Polirrubro & Multiservicios</div>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="catalogo.html" class="nav-link">Productos Bazar</a>
+        <a href="impresiones.html" class="nav-link">Impresiones</a>
+        <a href="reparaciones.html" class="nav-link active">Taller & Reparaciones</a>
+        <a href="tramites.html" class="nav-link">Trámites ANSES</a>
+        <a href="comercios-amigos.html" class="nav-link">Comercios Amigos</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="admin-login.html" class="btn btn-outline" style="padding: 0.5rem 0.85rem;" title="Panel de Administrador">
+          <span class="material-symbols-outlined" style="font-size: 20px;">lock</span>
+          <span class="admin-btn-text">Admin</span>
+        </a>
+        <a href="https://wa.me/5493794662177?text=¡Hola%20Bazar%20Lo%20de%20Ester!%20Quiero%20consultar%20por%20una%20reparación." target="_blank" class="btn btn-whatsapp">
+          <span class="material-symbols-outlined" style="font-size: 20px;">chat</span>
+          <span>Consultar Taller</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero del Taller -->
+  <section class="hero-section" style="padding: 2.5rem 1.25rem;">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <span class="pill pill-blue" style="margin-bottom: 0.75rem;">SERVICIO TÉCNICO Y RASTREADOR EN TIEMPO REAL</span>
+      <h1 class="hero-title" style="font-size: 2.3rem; margin-bottom: 0.75rem;">
+        Taller de Reparaciones & Seguimiento de Equipos
+      </h1>
+      <p class="hero-desc" style="max-width: 800px; margin-bottom: 1rem;">
+        Reparación de celulares, tablets, pavas eléctricas, ventiladores y microondas con repuestos garantizados. 
+        Además, brindamos servicio especializado de lavado y desinfección de acolchados.
+      </p>
+      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        <span class="pill pill-green"><span class="material-symbols-outlined" style="font-size: 15px;">check_circle</span> Diagnóstico en el día</span>
+        <span class="pill pill-amber"><span class="material-symbols-outlined" style="font-size: 15px;">check_circle</span> Seguimiento online con código</span>
+        <span class="pill pill-blue"><span class="material-symbols-outlined" style="font-size: 15px;">check_circle</span> Notificación automática por WhatsApp</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- RASTREADOR DE ESTADO INTERACTIVO -->
+  <main class="container">
+    <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 2.5rem; box-shadow: var(--shadow-lg); margin-bottom: 3.5rem;">
+      <div style="text-align: center; max-width: 700px; margin: 0 auto 2rem;">
+        <span class="material-symbols-outlined" style="font-size: 40px; color: var(--primary); margin-bottom: 0.5rem;">track_changes</span>
+        <h2 style="font-size: 1.6rem; color: var(--primary); margin-bottom: 0.5rem;">Rastreador de Reparaciones en Vivo</h2>
+        <p style="color: var(--text-sub); font-size: 0.95rem;">
+          Ingresá el código de tu ticket (ej: <strong>#REP-1042</strong>, <strong>#REP-1045</strong> o <strong>#REP-1048</strong>) para ver en qué etapa está tu equipo en nuestro taller técnico.
+        </p>
+
+        <!-- Formulario de Búsqueda de Orden -->
+        <form id="tracker-form" style="display: flex; gap: 0.75rem; margin-top: 1.5rem; justify-content: center;">
+          <input type="text" id="tracker-code-input" placeholder="Ej: REP-1042" style="max-width: 350px; flex: 1; padding: 0.85rem 1.25rem; font-size: 1.15rem; font-weight: 800; text-transform: uppercase; border: 2px solid var(--border-focus); border-radius: var(--radius-md); letter-spacing: 0.05em;">
+          <button type="submit" class="btn btn-primary" style="padding: 0.85rem 1.5rem; font-size: 1rem;">
+            <span class="material-symbols-outlined">search</span>
+            Rastrear
+          </button>
+        </form>
+      </div>
+
+      <!-- Tarjeta de Resultado del Rastreo (Oculta por defecto hasta buscar) -->
+      <div id="tracker-result-card" style="display: none; border-top: 1px solid var(--border); padding-top: 2rem;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; background: var(--surface-dim); padding: 1.25rem 1.5rem; border-radius: var(--radius-lg);">
+          <div>
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">ORDEN DE SERVICIO:</div>
+            <div id="res-code" style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">#REP-1042</div>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">EQUIPO:</div>
+            <div id="res-device" style="font-size: 1.15rem; font-weight: 700; color: var(--text-main);">Motorola Moto G20</div>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">CLIENTE:</div>
+            <div id="res-client" style="font-size: 1.15rem; font-weight: 700; color: var(--text-main);">Carlos Ramírez</div>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">PRESUPUESTO ESTIMADO:</div>
+            <div id="res-cost" style="font-size: 1.5rem; font-weight: 800; color: #166534;">$26.000</div>
+          </div>
+        </div>
+
+        <!-- Stepper Visual de 5 Pasos -->
+        <div class="repair-stepper">
+          <div class="step-item" id="step-1">
+            <div class="step-circle"><span class="material-symbols-outlined">inventory_2</span></div>
+            <div class="step-label">1. Recibido</div>
+          </div>
+          <div class="step-item" id="step-2">
+            <div class="step-circle"><span class="material-symbols-outlined">biotech</span></div>
+            <div class="step-label">2. Diagnóstico</div>
+          </div>
+          <div class="step-item" id="step-3">
+            <div class="step-circle"><span class="material-symbols-outlined">build</span></div>
+            <div class="step-label">3. En Reparación</div>
+          </div>
+          <div class="step-item" id="step-4">
+            <div class="step-circle"><span class="material-symbols-outlined">rule</span></div>
+            <div class="step-label">4. En Pruebas</div>
+          </div>
+          <div class="step-item" id="step-5">
+            <div class="step-circle"><span class="material-symbols-outlined">verified</span></div>
+            <div class="step-label">5. ¡Listo para Retiro!</div>
+          </div>
+        </div>
+
+        <!-- Banner de Estado Destacado -->
+        <div id="res-status-banner" style="margin-top: 2rem; padding: 1.25rem 1.5rem; border-radius: var(--radius-lg); text-align: center;">
+          <!-- Mensaje dinámico -->
+        </div>
+
+      </div>
+
+      <!-- Estado: No encontrado -->
+      <div id="tracker-not-found" style="display: none; text-align: center; padding: 2rem; border-top: 1px solid var(--border);">
+        <span class="material-symbols-outlined" style="font-size: 48px; color: #ef4444; margin-bottom: 0.5rem;">error</span>
+        <h3 style="font-size: 1.25rem; color: #b91c1c; margin-bottom: 0.25rem;">No encontramos una orden con ese código</h3>
+        <p style="color: var(--text-sub); font-size: 0.9rem; max-width: 500px; margin: 0 auto 1rem;">
+          Verificá haber escrito el código exactamente como figura en tu ticket (por ejemplo: <strong>#REP-1042</strong>). 
+          Si tenés dudas, consultanos directo por WhatsApp.
+        </p>
+        <a href="https://wa.me/5493794662177?text=¡Hola%20Bazar%20Lo%20de%20Ester!%20Quería%20consultar%20por%20el%20estado%20de%20mi%20equipo." target="_blank" class="btn btn-whatsapp">
+          <span class="material-symbols-outlined">chat</span>
+          Consultar por WhatsApp
+        </a>
+      </div>
+
+    </div>
+
+    <!-- SECCIÓN DE SERVICIOS TÉCNICOS & ELECTRODOMÉSTICOS -->
+    <div style="margin-bottom: 3.5rem;">
+      <div class="section-header">
+        <div class="section-tag"><span class="material-symbols-outlined">devices</span> Especialidades Técnicas</div>
+        <h2 class="section-title">¿Qué reparamos en Bazar Lo de Ester?</h2>
+        <p class="section-desc">Presupuestos transparentes, diagnósticos honestos y repuestos de primera calidad.</p>
+      </div>
+
+      <div class="cards-grid">
+        <div class="product-card">
+          <div>
+            <div class="product-image-container" style="height: 160px;">
+              <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=400&q=80" alt="Celulares" class="product-img">
+              <span class="badge-stock">Express</span>
+            </div>
+            <div class="product-category">Telefonía Móvil</div>
+            <h3 class="product-name">Celulares & Tablets</h3>
+            <p class="product-desc">Cambio de módulos de pantalla originales, pines de carga tipo C / V8, cambio de baterías y recuperación por humedad o sulfato.</p>
+          </div>
+          <div class="product-footer">
+            <span style="font-size: 0.85rem; font-weight: 700; color: var(--primary);">Garantía 90 días</span>
+            <a href="https://wa.me/5493794662177?text=¡Hola%20Bazar%20Lo%20de%20Ester!%20Quiero%20presupuesto%20para%20arreglar%20un%20celular." target="_blank" class="btn btn-outline" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;">Consultar</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div>
+            <div class="product-image-container" style="height: 160px;">
+              <img src="https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?auto=format&fit=crop&w=400&q=80" alt="Pavas eléctricas" class="product-img">
+              <span class="badge-stock">Hogar</span>
+            </div>
+            <div class="product-category">Electrodomésticos</div>
+            <h3 class="product-name">Pavas Eléctricas & Tostadoras</h3>
+            <p class="product-desc">Reparación de bases sulfatadas, reemplazo de resistencias térmicas, termostatos de corte automático y cableados reforzados.</p>
+          </div>
+          <div class="product-footer">
+            <span style="font-size: 0.85rem; font-weight: 700; color: var(--primary);">Repuestos certificados</span>
+            <a href="https://wa.me/5493794662177?text=¡Hola%20Bazar%20Lo%20de%20Ester!%20Tengo%20una%20pava%20eléctrica%20para%20reparar." target="_blank" class="btn btn-outline" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;">Consultar</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div>
+            <div class="product-image-container" style="height: 160px;">
+              <img src="https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80" alt="Ventiladores" class="product-img">
+              <span class="badge-stock">Temporada</span>
+            </div>
+            <div class="product-category">Climatización</div>
+            <h3 class="product-name">Ventiladores de Pie y Techo</h3>
+            <p class="product-desc">Cambio de bujes, bobinados de motor, capacitores de arranque, llaves de velocidades y balanceo de paletas para el verano correntino.</p>
+          </div>
+          <div class="product-footer">
+            <span style="font-size: 0.85rem; font-weight: 700; color: var(--primary);">Service rápido</span>
+            <a href="https://wa.me/5493794662177?text=¡Hola%20Bazar%20Lo%20de%20Ester!%20Quiero%20hacerle%20service%20a%20un%20ventilador." target="_blank" class="btn btn-outline" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;">Consultar</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div>
+            <div class="product-image-container" style="height: 160px;">
+              <img src="https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=400&q=80" alt="Microondas" class="product-img">
+              <span class="badge-stock">Cocina</span>
+            </div>
+            <div class="product-category">Cocina</div>
+            <h3 class="product-name">Microondas & Hornos</h3>
+            <p class="product-desc">Reemplazo de magnetrones, placas de mica protectora, fusible de alta tensión, platos giratorios y switches de puerta.</p>
+          </div>
+          <div class="product-footer">
+            <span style="font-size: 0.85rem; font-weight: 700; color: var(--primary);">Diagnóstico exacto</span>
+            <a href="https://wa.me/5493794662177?text=¡Hola%20Bazar%20Lo%20de%20Ester!%20Quiero%20presupuesto%20para%20un%20microondas." target="_blank" class="btn btn-outline" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;">Consultar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN DE LAVADO DE ACOLCHADOS -->
+    <div id="acolchados" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 1px solid #bbf7d0; border-radius: var(--radius-xl); padding: 2.5rem; margin-bottom: 2rem;">
+      <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; align-items: center;">
+        <div>
+          <span class="pill pill-green" style="margin-bottom: 0.75rem;">HIGIENE & CONFORT PARA TU HOGAR</span>
+          <h2 style="font-size: 1.85rem; color: #166534; margin-bottom: 0.75rem;">Servicio de Lavado de Acolchados & Frazadas</h2>
+          <p style="color: #14532d; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">
+            Lavado profundo con agua tratada, jabones hipoalergénicos, suavizantes de fragancia duradera y secado completo. 
+            Te lo entregamos doblado y embolsado, listo para guardar o tender en tu cama.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="background: #fff; padding: 1rem; border-radius: var(--radius-md); border: 1px solid #86efac; text-align: center;">
+              <div style="font-size: 0.8rem; font-weight: 700; color: #166534;">1 PLAZA</div>
+              <div id="rate-acolchado-1p" style="font-size: 1.5rem; font-weight: 800; color: #14532d;">$7.500</div>
+              <div style="font-size: 0.75rem; color: #15803d;">Simple / Twin</div>
+            </div>
+            <div style="background: #fff; padding: 1rem; border-radius: var(--radius-md); border: 1px solid #86efac; text-align: center;">
+              <div style="font-size: 0.8rem; font-weight: 700; color: #166534;">2 PLAZAS</div>
+              <div id="rate-acolchado-2p" style="font-size: 1.5rem; font-weight: 800; color: #14532d;">$9.800</div>
+              <div style="font-size: 0.75rem; color: #15803d;">Matrimonial / Queen</div>
+            </div>
+            <div style="background: #fff; padding: 1rem; border-radius: var(--radius-md); border: 1px solid #86efac; text-align: center;">
+              <div style="font-size: 0.8rem; font-weight: 700; color: #166534;">KING SIZE</div>
+              <div id="rate-acolchado-king" style="font-size: 1.5rem; font-weight: 800; color: #14532d;">$12.500</div>
+              <div style="font-size: 0.75rem; color: #15803d;">2x2 mts / Plumón</div>
+            </div>
+          </div>
+
+          <a href="https://wa.me/5493794662177?text=¡Hola%20Bazar%20Lo%20de%20Ester!%20Quería%20coordinar%20para%20llevar%20a%20lavar%20un%20acolchado." target="_blank" class="btn btn-whatsapp" style="padding: 0.75rem 1.5rem;">
+            <span class="material-symbols-outlined">local_laundry_service</span>
+            Encargar Lavado de Acolchado por WhatsApp
+          </a>
+        </div>
+
+        <div style="text-align: center;">
+          <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?auto=format&fit=crop&w=500&q=80" alt="Lavado de Acolchados" style="width: 100%; max-height: 280px; object-fit: cover; border-radius: var(--radius-lg); border: 3px solid #fff; box-shadow: var(--shadow-md);">
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Botón Flotante de WhatsApp -->
+  <a href="https://wa.me/5493794662177?text=¡Hola%20Bazar%20Lo%20de%20Ester!%20Quería%20consultar%20por%20el%20servicio%20técnico." target="_blank" class="floating-whatsapp" title="Escribir por WhatsApp">
+    <span class="material-symbols-outlined">chat</span>
+  </a>
+
+  <!-- Footer Principal -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Bazar Lo de Ester</h3>
+        <p style="margin-bottom: 1rem;">
+          Taller de reparaciones técnicas para el hogar y la familia en Corrientes.
+        </p>
+        <div style="font-size: 0.875rem; color: #94a3b8;">
+          <div><strong>Dirección:</strong> Gato y Mancha 1129, Corrientes</div>
+          <div><strong>WhatsApp Técnico:</strong> 379 4662177</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="catalogo.html">Catálogo Bazar</a></li>
+          <li><a href="impresiones.html">Impresiones & Copias</a></li>
+          <li><a href="tramites.html">Trámites ANSES</a></li>
+          <li><a href="comercios-amigos.html">Comercios Amigos</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Administrador</h4>
+        <ul class="footer-links">
+          <li><a href="admin-login.html">Ingreso Administrador</a></li>
+          <li><a href="admin-taller.html">Panel de Órdenes & Taller</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Garantía</h4>
+        <p style="font-size: 0.875rem; color: #94a3b8; line-height: 1.6;">
+          Todos nuestros arreglos de celulares y electrodomésticos cuentan con garantía escrita de taller. Retiro en Gato y Mancha 1129.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Bazar Lo de Ester. Todos los derechos reservados.</div>
+      <div>Taller Técnico & Reparaciones</div>
+    </div>
+  </footer>
+
+  <script src="store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Tarifas de lavado dinámicas
+      const rates = Store.getRates().lavado;
+      document.getElementById('rate-acolchado-1p').textContent = `$${rates.plaza_1.toLocaleString('es-AR')}`;
+      document.getElementById('rate-acolchado-2p').textContent = `$${rates.plaza_2.toLocaleString('es-AR')}`;
+      document.getElementById('rate-acolchado-king').textContent = `$${rates.king.toLocaleString('es-AR')}`;
+
+      const trackerForm = document.getElementById('tracker-form');
+      const codeInput = document.getElementById('tracker-code-input');
+      const resultCard = document.getElementById('tracker-result-card');
+      const notFoundCard = document.getElementById('tracker-not-found');
+
+      function performTrack(code) {
+        if (!code) return;
+        const repair = Store.findRepair(code);
+        
+        if (!repair) {
+          resultCard.style.display = 'none';
+          notFoundCard.style.display = 'block';
+          return;
+        }
+
+        notFoundCard.style.display = 'none';
+        resultCard.style.display = 'block';
+
+        // Llenar datos
+        document.getElementById('res-code').textContent = repair.code.startsWith('#') ? repair.code : `#${repair.code}`;
+        document.getElementById('res-device').textContent = repair.device;
+        document.getElementById('res-client').textContent = repair.client;
+        document.getElementById('res-cost').textContent = `$${Number(repair.cost).toLocaleString('es-AR')}`;
+
+        // Resetear stepper
+        for (let i = 1; i <= 5; i++) {
+          const stepEl = document.getElementById(`step-${i}`);
+          stepEl.classList.remove('active', 'completed');
+        }
+
+        // Mapear estado
+        // Estados: recibido (1), diagnostico (2), reparacion (3), pruebas (4), listo (5), entregado (5)
+        let activeStep = 1;
+        let bannerBg = '#e0e7ff';
+        let bannerColor = '#1e3a8a';
+        let bannerMsg = '';
+
+        if (repair.status === 'recibido') {
+          activeStep = 1;
+          bannerMsg = '📥 <strong>Equipo recibido en el local.</strong> Se encuentra en cola de espera para ingreso al banco de pruebas.';
+        } else if (repair.status === 'diagnostico') {
+          activeStep = 2;
+          bannerBg = '#fef3c7';
+          bannerColor = '#92400e';
+          bannerMsg = '🔍 <strong>En Diagnóstico Técnico.</strong> Estamos evaluando los componentes y la falla para emitir el presupuesto.';
+        } else if (repair.status === 'reparacion') {
+          activeStep = 3;
+          bannerBg = '#fef3c7';
+          bannerColor = '#92400e';
+          bannerMsg = '🛠️ <strong>En fase de Reparación.</strong> Nuestro técnico está trabajando en el recambio de piezas y soldaduras.';
+        } else if (repair.status === 'pruebas') {
+          activeStep = 4;
+          bannerBg = '#e0e7ff';
+          bannerColor = '#1e3a8a';
+          bannerMsg = '⚡ <strong>En Banco de Pruebas.</strong> El equipo ya fue reparado y se encuentra en etapa de testeo de rendimiento y carga.';
+        } else if (repair.status === 'listo' || repair.status === 'entregado') {
+          activeStep = 5;
+          bannerBg = '#dcfce7';
+          bannerColor = '#166534';
+          bannerMsg = `🎉 <strong>¡TU EQUIPO YA ESTÁ LISTO PARA RETIRAR!</strong><br>Podés pasar por <strong>Gato y Mancha 1129, Corrientes</strong> en nuestro horario comercial. Saldo a abonar: <strong>$${Number(repair.cost).toLocaleString('es-AR')}</strong>.`;
+        }
+
+        for (let i = 1; i <= activeStep; i++) {
+          const stepEl = document.getElementById(`step-${i}`);
+          if (i < activeStep) {
+            stepEl.classList.add('completed');
+          } else {
+            stepEl.classList.add('active');
+          }
+        }
+
+        const banner = document.getElementById('res-status-banner');
+        banner.style.background = bannerBg;
+        banner.style.color = bannerColor;
+        banner.innerHTML = bannerMsg;
+
+        // Scroll suave al resultado
+        resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      trackerForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        performTrack(codeInput.value.trim());
+      });
+
+      // Si viene por query param ?code=REP-1042
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramCode = urlParams.get('code');
+      if (paramCode) {
+        codeInput.value = paramCode;
+        performTrack(paramCode);
+      }
+    });
+  </script>
+</body>
+</html>
